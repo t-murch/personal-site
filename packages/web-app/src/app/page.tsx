@@ -1,5 +1,13 @@
 import Icon from "@/components/Icon";
+import { recentJams } from "@/lib/text-data";
+import { Jam } from "@/types";
 import Image from "next/image";
+import { ListCard } from "../components/ListCard";
+
+export type ListCardProps = {
+  title: string;
+  items: Jam[];
+};
 
 export default function Home() {
   return (
@@ -8,7 +16,7 @@ export default function Home() {
         <div className="flex w-3/4 gap-2 flex-col h-full items-center justify-between">
           <header className="flex h-[20%] w-full gap-2 py-1 px-2 flex-row items-end rounded-md border-white border-2">
             <Image
-              src="/profile.jpg"
+              src="../../public/vercel.svg"
               alt="Todd's profile picture"
               width={55}
               height={55}
@@ -38,17 +46,20 @@ export default function Home() {
               <p className="text-lg font-bold mb-[-0.3rem]">GitHub</p>
             </a>
           </section>
-          <section className="flex flex-col h-[70%] w-full py-1 px-2 rounded-md border-white border-2">
-            THIS IS THE MAIN SECTION
-            {"\n"}
-            Will show a randomly loaded ai summary of my resume. And be swapped
-            out by 'full versions' of the right hand sections upon clicking on
-            the section.
+          <section className="flex flex-col h-[70%] w-full rounded-md border-white border-2">
+            {/* <p className="py-1 px-2"> */}
+            {/*   THIS IS THE MAIN SECTION */}
+            {/*   {"\n"} */}
+            {/*   Will show a randomly loaded ai summary of my resume. And be */}
+            {/*   swapped out by 'full versions' of the right hand sections upon */}
+            {/*   clicking on the section. */}
+            {/* </p> */}
+            <ListCard title="Recent Jams" items={recentJams} />
           </section>
         </div>
         <section className="flex w-1/4 flex-col gap-2">
-          <article className="flex h-1/3 w-full flex-col p-2 border-2 border-white rounded-md text-xl font-bold text-green-500">
-            Spotify
+          <article className="h-1/3 w-full">
+            <ListCard title="Recent Jams" items={recentJams} />
           </article>
           <article className="flex h-1/3 w-full flex-col p-2 border-2 border-white rounded-md text-xl font-bold text-orange-500">
             Strava
