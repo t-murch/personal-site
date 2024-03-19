@@ -4,12 +4,13 @@ import dynamicIconImports from "lucide-react/dynamicIconImports";
 
 interface IconProps extends LucideProps {
   name: keyof typeof dynamicIconImports;
+  alt?: string;
 }
 
 const Icon = ({ name, ...props }: IconProps) => {
   const LucideIcon = dynamic(dynamicIconImports[name]);
 
-  return <LucideIcon {...props} />;
+  return <LucideIcon name={name} {...props} />;
 };
 
 export default Icon;

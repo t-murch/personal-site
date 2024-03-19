@@ -1,3 +1,79 @@
+// Array of Strava activities
+// include the following fields:
+// - name/title of activity
+// - duration
+// - distance (N/A for workouts)
+// - type (run, ride, workout, etc)
+// - date
+// - url (link to activity on Strava)
+// length of array should be 10
+const stravaActivities = [
+  {
+    name: "Morning Run",
+    duration: "1:30:00",
+    distance: "10.0 mi",
+    type: "Run",
+    date: "2021-09-01",
+    url: "https://www.strava.com/activities/123456789",
+  },
+  {
+    name: "Evening Ride",
+    duration: "1:00:00",
+    distance: "20.0 mi",
+    type: "Ride",
+    date: "2021-09-02",
+    url: "https://www.strava.com/activities/123456789",
+  },
+  {
+    name: "Lunch Run",
+    duration: "0:45:00",
+    distance: "5.0 mi",
+    type: "Run",
+    date: "2021-09-03",
+    url: "https://www.strava.com/activities/123456789",
+  },
+  {
+    name: "Morning Workout",
+    duration: "1:30:00",
+    distance: "N/A",
+    type: "Strength Workout",
+    date: "2021-09-14",
+    url: "https://www.strava.com/activities/123456789",
+  },
+  {
+    name: "Evening Ride",
+    duration: "1:00:00",
+    distance: "20.0 mi",
+    type: "Ride",
+    date: "2021-09-02",
+    url: "https://www.strava.com/activities/123456789",
+  },
+  {
+    name: "Lunch Run",
+    duration: "0:45:00",
+    distance: "5.0 mi",
+    type: "Run",
+    date: "2021-09-03",
+    url: "https://www.strava.com/activities/123456789",
+  },
+  {
+    name: "Morning Run",
+    duration: "1:30:00",
+    distance: "10.0 mi",
+    type: "Run",
+    date: "2021-09-01",
+    url: "https://www.strava.com/activities/123456789",
+  },
+  {
+    name: "Evening Workout",
+    duration: "1:00:00",
+    distance: "N/A",
+    type: "Strength Workout",
+    date: "2021-09-02",
+    url: "https://www.strava.com/activities/123456789",
+  },
+];
+
 const recentJams = [
   {
     title: "Izzo (H.O.V.A.)",
@@ -111,4 +187,4 @@ const recentJams = [
   },
 ];
 
-export { recentJams };
+export { recentJams, stravaActivities };

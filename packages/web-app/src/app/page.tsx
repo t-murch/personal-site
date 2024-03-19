@@ -1,13 +1,10 @@
+import SpotifyIcon from "@/../public/spotify.svg";
+import VercelIcon from "@/../public/vercel.svg";
 import Icon from "@/components/Icon";
 import { recentJams } from "@/lib/text-data";
-import { Jam } from "@/types";
 import Image from "next/image";
 import { ListCard } from "../components/ListCard";
-
-export type ListCardProps = {
-  title: string;
-  items: Jam[];
-};
+import SpotifyRow from "@/components/content-row/SpotifyRow";
 
 export default function Home() {
   return (
@@ -16,11 +13,11 @@ export default function Home() {
         <div className="flex w-3/4 gap-2 flex-col h-full items-center justify-between">
           <header className="flex h-[20%] w-full gap-2 py-1 px-2 flex-row items-end rounded-md border-white border-2">
             <Image
-              src="../../public/vercel.svg"
+              src={VercelIcon}
               alt="Todd's profile picture"
               width={55}
               height={55}
-              className="rounded-lg h-full w-1/5 border-white border-2"
+              className="bg-gray-50 rounded-lg h-full w-1/5 border-white border-2"
             />
             <h1 className="text-2xl font-bold">
               A software engineer who loves to learn and build things.
@@ -33,14 +30,19 @@ export default function Home() {
               rel="noreferrer"
               className="flex flex-row h-full gap-1 items-end"
             >
-              <Icon name="linkedin" size={25} color="#0a66c2" />
+              <Icon
+                name="linkedin"
+                alt="linkedin-icon"
+                size={25}
+                color="#0a66c2"
+              />
               <p className="text-lg font-bold mb-[-0.3rem]">LinkedIn</p>
             </a>
             <a
               href="https://github.com/t-murch"
               target="_blank"
               rel="noreferrer"
-              className="flex flex-row h-full items-end"
+              className="flex flex-row h-full gap-1 items-end"
             >
               <Icon name="github" size={25} color="#adbac7" />
               <p className="text-lg font-bold mb-[-0.3rem]">GitHub</p>
@@ -54,12 +56,24 @@ export default function Home() {
             {/*   swapped out by 'full versions' of the right hand sections upon */}
             {/*   clicking on the section. */}
             {/* </p> */}
-            <ListCard title="Recent Jams" items={recentJams} />
+            <ListCard
+              contentRow={SpotifyRow}
+              title="Recent Jams"
+              titleColor="text-green-500"
+              iconPath={SpotifyIcon}
+              items={recentJams}
+            />
           </section>
         </div>
         <section className="flex w-1/4 flex-col gap-2">
           <article className="h-1/3 w-full">
-            <ListCard title="Recent Jams" items={recentJams} />
+            <ListCard
+              contentRow={SpotifyRow}
+              title="Recent Jams"
+              titleColor="text-green-500"
+              iconPath={SpotifyIcon}
+              items={recentJams}
+            />
           </article>
           <article className="flex h-1/3 w-full flex-col p-2 border-2 border-white rounded-md text-xl font-bold text-orange-500">
             Strava
