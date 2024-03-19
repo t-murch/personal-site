@@ -2,17 +2,18 @@ import NextLogo from "@/../public/next.svg";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { Jam } from "@/types";
+import { Activity, Jam } from "@/types";
 import Image from "next/image";
 import Icon from "./Icon";
 import { ContentRowProps } from "./content-row/contentRow";
+import Link from "next/link";
 
 type ListCardProps = {
   contentRow: React.ComponentType<ContentRowProps>;
   title: string;
   titleColor?: string;
   iconPath?: string;
-  items: Jam[];
+  items: Jam[] | Activity[];
 };
 
 export function ListCard({
@@ -25,7 +26,7 @@ export function ListCard({
   return (
     <Card className="@container/card h-full w-full text-xl">
       <CardHeader
-        className={`h-1/3 @xl/card:h-1/5 @xl/card:text-4xl px-2 pt-2 pb-0 font-bold`}
+        className={`h-1/3 @xl/card:h-1/5 @xl/card:text-4xl px-2 pt-2 pb-0 font-bold overflow-hidden text-ellipsis text-nowrap`}
       >
         <div className="flex flex-row justify-between pr-1 h-full overflow-hidden text-ellipsis">
           <div className={`flex gap-1 items-center ${titleColor}`}>
@@ -49,7 +50,9 @@ export function ListCard({
               height={40}
             />
           )}
-          <Icon name="minimize" className="hidden @xl/card:inline" />
+          <Link href="/">
+            <Icon name="minimize" className="hidden @xl/card:inline" />
+          </Link>
         </div>
         <Separator className="@xl/card:my-2" />
       </CardHeader>
@@ -57,7 +60,7 @@ export function ListCard({
         <ScrollArea className="h-full">
           {items.map((jam, index) => {
             return (
-              <div key={index}>
+              <div key={index} className="h-full">
                 <ContentRow
                   title={jam.title}
                   secondaryInfo={jam.artist}

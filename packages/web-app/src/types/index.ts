@@ -6,4 +6,13 @@ type Jam = {
   url: string;
 };
 
-export type { Jam };
+type Activity = {
+  name: string;
+  duration: string;
+  distance: string;
+  type: string;
+  date: string;
+  url: string;
+};
+
+export type { Activity, Jam };

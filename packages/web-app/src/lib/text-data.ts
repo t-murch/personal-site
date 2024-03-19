@@ -7,7 +7,7 @@
 // - date
 // - url (link to activity on Strava)
 // length of array should be 10
-const stravaActivities = [
+const recentActivities = [
   {
     name: "Morning Run",
     duration: "1:30:00",
@@ -187,4 +187,4 @@ const recentJams = [
   },
 ];
 
-export { recentJams, stravaActivities };
+export { recentJams, recentActivities };
