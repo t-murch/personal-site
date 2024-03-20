@@ -1,12 +1,3 @@
-// Array of Strava activities
-// include the following fields:
-// - name/title of activity
-// - duration
-// - distance (N/A for workouts)
-// - type (run, ride, workout, etc)
-// - date
-// - url (link to activity on Strava)
-// length of array should be 10
 const recentActivities = [
   {
     name: "Morning Run",
@@ -36,7 +27,7 @@ const recentActivities = [
     name: "Morning Workout",
     duration: "1:30:00",
     distance: "N/A",
-    type: "Strength Workout",
+    type: "Workout",
     date: "2021-09-14",
     url: "https://www.strava.com/activities/123456789",
   },
@@ -68,7 +59,7 @@ const recentActivities = [
     name: "Evening Workout",
     duration: "1:00:00",
     distance: "N/A",
-    type: "Strength Workout",
+    type: "Workout",
     date: "2021-09-02",
     url: "https://www.strava.com/activities/123456789",
   },

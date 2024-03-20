@@ -5,7 +5,7 @@ import Icon from "@/components/Icon";
 import { ListCard } from "@/components/ListCard";
 import ActivityRow from "@/components/content-row/ActivityRow";
 import MusicRow from "@/components/content-row/MusicRow";
-import { recentJams } from "@/lib/text-data";
+import { recentActivities, recentJams } from "@/lib/text-data";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
@@ -96,7 +96,7 @@ export default function RootLayout({
                   title="Recent Activities"
                   titleColor="text-orange-500"
                   iconPath={StravaIcon}
-                  items={recentJams}
+                  items={recentActivities}
                 />
               </Link>
             </article>

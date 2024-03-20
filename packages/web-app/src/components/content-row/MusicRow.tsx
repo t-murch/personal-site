@@ -1,9 +1,10 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import Image from "next/image";
 import NextLogo from "@/../public/next.svg";
+import Image from "next/image";
 import { ContentRowProps } from "./contentRow";
+import LiveWrapper from "./LiveWrapper";
+import { Separator } from "../ui/separator";
 
 export default function MusicRow({
   additional,
@@ -12,64 +13,23 @@ export default function MusicRow({
   title,
   url,
 }: ContentRowProps) {
-  const activePath = usePathname();
-  function LiveWrapper({ children }: { children: React.ReactNode }) {
+  function Content() {
     return (
-      <a
-        href={url}
-        className="flex flex-row gap-2 @xl/card:gap-3 items-center whitespace-nowrap overflow-hidden overflow-ellipsis @[14rem]/card:font-semibold @[14rem]/card:text-[#adbac7] text-sm @[14rem]/card:text-lg"
-        target="_blank"
-      >
-        {children}
-      </a>
-    );
-  }
-
-  if (activePath === "/music") {
-    return (
-      <>
-        <LiveWrapper>
-          <Image
-            src={imageLink ?? NextLogo}
-            alt={`${title} album cover`}
-            width={50}
-            height={50}
-            className="rounded-md"
-            priority
-          />
-          <div className="overflow-hidden overflow-ellipsis">
-            <p>
-              {title}{" "}
-              <span className="text-xs font-bold text-[#2a2828]">by</span>{" "}
-              {secondaryInfo}
-            </p>
-            <p className="hidden @xl/card:flex text-sm">
-              <span className="text-xs font-bold text-[#adbac7]">
-                {additional}
-              </span>
-            </p>
-          </div>
-        </LiveWrapper>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <div className="flex flex-row gap-2 @xl/card:gap-3 items-center whitespace-nowrap overflow-hidden overflow-ellipsis @[14rem]/card:font-semibold @[14rem]/card:text-[#adbac7] text-sm @[14rem]/card:text-lg">
+      <div className="flex flex-row gap-2 @xl/card:gap-3items-center whitespace-nowrap overflow-hidden overflow-ellipsis @[14rem]/card:font-semibold @[14rem]/card:text-[#adbac7] text-sm @[14rem]/card:text-lg">
         <Image
           src={imageLink ?? NextLogo}
           alt={`${title} album cover`}
-          width={50}
-          height={50}
-          className="rounded-md"
+          width={25}
+          height={25}
+          className="rounded-md w-[25px] h-[25px]"
           priority
         />
-        <div className="overflow-hidden overflow-ellipsis">
+        <div className="h-full overflow-hidden overflow-ellipsis">
           <p>
             {title} <span className="text-xs font-bold text-[#2a2828]">by</span>{" "}
             {secondaryInfo}
           </p>
+          <Separator className="hidden @xl/card:flex" />
           <p className="hidden @xl/card:flex text-sm">
             <span className="text-xs font-bold text-[#adbac7]">
               {additional}
@@ -77,6 +37,18 @@ export default function MusicRow({
           </p>
         </div>
       </div>
-    </>
-  );
+    );
+  }
+
+  const rowContainer = document.getElementById("container-card");
+  // If rowContainer width is > 36rem, then wrap in LiveWrapper
+  if (rowContainer && rowContainer.offsetWidth > 36 * 16) {
+    return (
+      <LiveWrapper url={url}>
+        <Content />
+      </LiveWrapper>
+    );
+  }
+
+  return <Content />;
 }

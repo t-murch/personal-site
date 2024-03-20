@@ -4,4 +4,5 @@ export interface ContentRowProps {
   secondaryInfo: string;
   title: string;
   url: string;
+  data?: { [key: string]: string | number | boolean };
 }

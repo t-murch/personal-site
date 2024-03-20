@@ -14,29 +14,60 @@ export default function Page() {
           <div className="flex flex-row justify-between pr-1 h-full overflow-hidden text-ellipsis">
             <div className="flex gap-1 items-center">
               <Image
-                className="hidden @xl/card:inline"
+                className="hidden @xl/card:inline w-[25px] h-[25px]"
                 src={NextLogo}
                 alt={`SOME-icon`}
-                width={40}
-                height={40}
+                width={25}
+                height={25}
               />
               AI Gen. Resume Summary
             </div>
-            {/* <Link href="/"> */}
-            {/*   <Icon name="minimize" className="hidden @xl/card:inline" /> */}
-            {/* </Link> */}
           </div>
           <Separator className="@xl/card:my-2" />
         </CardHeader>
-        <CardContent className="h-2/3 @xl/card:h-4/5 p-2 pt-2">
+        <CardContent className="h-2/3 @xl/card:h-4/5 @xl/card:max-h-[4/5] p-2 pt-2">
           <ScrollArea className="h-full">
-            {/* <div className="py-1 px-2"> */}
             THIS IS THE MAIN SECTION
             {"\n"}
             Will show a randomly loaded ai summary of my resume. And be swapped
             out by 'full versions' of the right hand sections upon clicking on
             the section.
-            {/* </div> */}
+            {"\n"}
+            THIS IS THE MAIN SECTION
+            {"\n"}
+            Will show a randomly loaded ai summary of my resume. And be swapped
+            out by 'full versions' of the right hand sections upon clicking on
+            the section.
+            {"\n"}
+            THIS IS THE MAIN SECTION
+            {"\n"}
+            Will show a randomly loaded ai summary of my resume. And be swapped
+            out by 'full versions' of the right hand sections upon clicking on
+            the section.
+            {"\n"}
+            THIS IS THE MAIN SECTION
+            {"\n"}
+            Will show a randomly loaded ai summary of my resume. And be swapped
+            out by 'full versions' of the right hand sections upon clicking on
+            the section.
+            {"\n"}
+            THIS IS THE MAIN SECTION
+            {"\n"}
+            Will show a randomly loaded ai summary of my resume. And be swapped
+            out by 'full versions' of the right hand sections upon clicking on
+            the section. THIS IS THE MAIN SECTION
+            {"\n"}
+            Will show a randomly loaded ai summary of my resume. And be swapped
+            out by 'full versions' of the right hand sections upon clicking on
+            the section.
+            {"\n"}
+            {"\n"}
+            THIS IS THE MAIN SECTION
+            {"\n"}
+            Will show a randomly loaded ai summary of my resume. And be swapped
+            out by 'full versions' of the right hand sections upon clicking on
+            the section.
+            {"\n"}
           </ScrollArea>
         </CardContent>
       </Card>
