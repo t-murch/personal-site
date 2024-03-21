@@ -30,43 +30,43 @@ export default function Page() {
             THIS IS THE MAIN SECTION
             {"\n"}
             Will show a randomly loaded ai summary of my resume. And be swapped
-            out by 'full versions' of the right hand sections upon clicking on
-            the section.
+            out by &apos;full versions&apos; of the right hand sections upon
+            clicking on the section.
             {"\n"}
             THIS IS THE MAIN SECTION
             {"\n"}
             Will show a randomly loaded ai summary of my resume. And be swapped
-            out by 'full versions' of the right hand sections upon clicking on
-            the section.
+            out by &apos;full versions&apos; of the right hand sections upon
+            clicking on the section.
             {"\n"}
             THIS IS THE MAIN SECTION
             {"\n"}
             Will show a randomly loaded ai summary of my resume. And be swapped
-            out by 'full versions' of the right hand sections upon clicking on
-            the section.
+            out by &apos;full versions&apos; of the right hand sections upon
+            clicking on the section.
             {"\n"}
             THIS IS THE MAIN SECTION
             {"\n"}
             Will show a randomly loaded ai summary of my resume. And be swapped
-            out by 'full versions' of the right hand sections upon clicking on
-            the section.
+            out by &apos;full versions&apos; of the right hand sections upon
+            clicking on the section.
             {"\n"}
             THIS IS THE MAIN SECTION
             {"\n"}
             Will show a randomly loaded ai summary of my resume. And be swapped
-            out by 'full versions' of the right hand sections upon clicking on
-            the section. THIS IS THE MAIN SECTION
+            out by &apos;full versions&apos; of the right hand sections upon
+            clicking on the section. THIS IS THE MAIN SECTION
             {"\n"}
             Will show a randomly loaded ai summary of my resume. And be swapped
-            out by 'full versions' of the right hand sections upon clicking on
-            the section.
+            out by &apos;full versions&apos; of the right hand sections upon
+            clicking on the section.
             {"\n"}
             {"\n"}
             THIS IS THE MAIN SECTION
             {"\n"}
             Will show a randomly loaded ai summary of my resume. And be swapped
-            out by 'full versions' of the right hand sections upon clicking on
-            the section.
+            out by &apos;full versions&apos; of the right hand sections upon
+            clicking on the section.
             {"\n"}
           </ScrollArea>
         </CardContent>
