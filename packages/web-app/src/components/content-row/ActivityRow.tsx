@@ -8,10 +8,10 @@ import Image from "next/image";
 import { ContentRowProps } from "./contentRow";
 import LiveWrapper from "./LiveWrapper";
 import { Separator } from "../ui/separator";
+import { useEffect, useRef } from "react";
 
 function iconSelector(type: string) {
   const titleLower = type.toLowerCase();
-  console.debug("titleLower", titleLower);
   if (titleLower === "run") {
     return RunIcon;
   } else if (titleLower === "workout") {
@@ -30,6 +30,11 @@ export default function ActivityRow({
   url,
   data,
 }: ContentRowProps) {
+  let rowContainer = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    rowContainer.current = document.getElementById("container-card");
+  }, []);
   // My personal choice to default to workout.
   // It is my most common activity.
   const iconPath = iconSelector((data?.type as string) || "workout");
@@ -61,9 +66,8 @@ export default function ActivityRow({
     );
   }
 
-  const rowContainer = document.getElementById("container-card");
   // If rowContainer width is > 36rem, then wrap in LiveWrapper
-  if (rowContainer && rowContainer.offsetWidth > 36 * 16) {
+  if (rowContainer.current && rowContainer.current.offsetWidth > 36 * 16) {
     return (
       <LiveWrapper url={url}>
         <Content />

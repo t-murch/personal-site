@@ -2,12 +2,12 @@
 
 import NextLogo from "@/../public/next.svg";
 import Image from "next/image";
-import { ContentRowProps } from "./contentRow";
-import LiveWrapper from "./LiveWrapper";
-import { Separator } from "../ui/separator";
 import { useEffect, useRef } from "react";
+import { Separator } from "../ui/separator";
+import LiveWrapper from "./LiveWrapper";
+import { ContentRowProps } from "./contentRow";
 
-export default function MusicRow({
+export default function ThoughtRow({
   additional,
   imageLink,
   secondaryInfo,

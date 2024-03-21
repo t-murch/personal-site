@@ -2,18 +2,11 @@ import NextLogo from "@/../public/next.svg";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import {
-  Activity,
-  Activity,
-  Jam,
-  Jam,
-  activityToContentRow,
-  jamToContentRow,
-} from "@/types";
+import { Activity, Jam, activityToContentRow, jamToContentRow } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 import Icon from "./Icon";
 import { ContentRowProps } from "./content-row/contentRow";
-import Link from "next/link";
 
 type ListCardProps = {
   contentRow: React.ComponentType<ContentRowProps>;
