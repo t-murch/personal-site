@@ -75,7 +75,7 @@ export function ListCard({
                 <ContentRow
                   title={item.title}
                   secondaryInfo={item.secondaryInfo}
-                  imageLink={NextLogo}
+                  imageLink={item.imageLink ?? NextLogo}
                   additional={item.additional}
                   url={item.url}
                   data={item?.data ?? {}}

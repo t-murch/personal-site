@@ -1,18 +1,18 @@
 import NotionIcon from "@/../public/notion.svg";
-import SpotifyIcon from "@/../public/spotify.svg";
 import StravaIcon from "@/../public/strava.svg";
 import VercelIcon from "@/../public/vercel.svg";
+import MusicCard from "@/app/music/MusicCard";
 import Icon from "@/components/Icon";
 import { ListCard } from "@/components/ListCard";
 import ActivityRow from "@/components/content-row/ActivityRow";
-import MusicRow from "@/components/content-row/MusicRow";
-import { recentActivities, recentJams } from "@/lib/text-data";
+import { Card } from "@/components/ui/card";
+import { recentActivities } from "@/lib/text-data";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import "./globals.css";
-import { Card } from "@/components/ui/card";
+import AmplifyConfig from "./ui/AmplifyConfig";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,6 +33,7 @@ export default function RootLayout({
       >
         {/* BEGINNING OF LAYOUT */}
 
+        <AmplifyConfig />
         <div className="flex h-full w-full flex-row gap-2">
           <div className="flex w-3/4 gap-2 flex-col h-full items-center justify-between">
             <header className="flex h-[20%] w-full">
@@ -83,13 +84,7 @@ export default function RootLayout({
           <section className="flex w-1/4 flex-col gap-2">
             <article className="h-1/3 w-full">
               <Link href="/music">
-                <ListCard
-                  contentRow={MusicRow}
-                  title="Recent Jams"
-                  titleColor="text-green-500"
-                  iconPath={SpotifyIcon}
-                  items={recentJams}
-                />
+                <MusicCard />
               </Link>
             </article>
             <article
