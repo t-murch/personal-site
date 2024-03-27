@@ -69,9 +69,9 @@ export default function ActivityRow({
   // If rowContainer width is > 36rem, then wrap in LiveWrapper
   if (rowContainer.current && rowContainer.current.offsetWidth > 36 * 16) {
     return (
-      <LiveWrapper url={url}>
-        <Content />
-      </LiveWrapper>
+      <Content />
+      // <LiveWrapper url={url}>
+      // </LiveWrapper>
     );
   }
 

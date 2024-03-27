@@ -1,5 +1,5 @@
-import MusicCard from "./MusicCard";
+import { MusicCard } from "@/components/MusicCard";
 
 export default async function Page() {
-  return <MusicCard />;
+  return <MusicCard placement="main" />;
 }

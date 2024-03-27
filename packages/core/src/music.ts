@@ -24,11 +24,13 @@ const SPOTIFY_API_BASE = "https://api.spotify.com/v1/";
  */
 export async function popularPlaylist() {
   let data: Playlist = {} as Playlist;
-  const playlistId =
-    SPOTIFY_PLAYLISTS[Math.floor(Math.random() * SPOTIFY_PLAYLISTS.length)];
+  const playlistId = SPOTIFY_PLAYLISTS[new Date().getDay() % 3];
+
+  // const playlistId =
+  //   SPOTIFY_PLAYLISTS[Math.floor(Math.random() * SPOTIFY_PLAYLISTS.length)];
 
   const fields =
-    "fields=name,href,tracks.items(track(name,href,album(name,images),artists(name)))";
+    "fields=name,href,tracks.items(track(name,external_urls.spotify,album(name,images),artists(name)))";
 
   try {
     const { access_token: accessToken } = await getAccessToken();
@@ -93,7 +95,7 @@ function toJam(track: Playlist["tracks"]["items"][number]): Jam {
     artist: t.artists.map((a) => a.name).join(", "),
     album: t.album.name,
     albumCover: t.album.images.find((image) => image.height === 64)?.url ?? "",
-    url: t.href,
+    url: t.external_urls.spotify,
   };
 }
 

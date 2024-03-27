@@ -2,10 +2,9 @@
 
 import NextLogo from "@/../public/next.svg";
 import Image from "next/image";
+import { Separator } from "../ui/separator";
 import { ContentRowProps } from "./contentRow";
 import LiveWrapper from "./LiveWrapper";
-import { Separator } from "../ui/separator";
-import { useEffect, useRef } from "react";
 
 export default function MusicRow({
   additional,
@@ -14,16 +13,6 @@ export default function MusicRow({
   title,
   url,
 }: ContentRowProps) {
-  let rowContainerOffset = useRef<number>(0);
-
-  useEffect(() => {
-    // console.debug("musicRowContainer.current", rowContainerOffset.current);
-    let rowContainer = document.getElementById("container-card");
-    rowContainerOffset.current = rowContainer
-      ? rowContainer.offsetWidth
-      : rowContainerOffset.current;
-  }, []);
-
   function Content() {
     return (
       <div className="flex flex-row gap-2 @xl/card:gap-3items-center whitespace-nowrap overflow-hidden overflow-ellipsis @[14rem]/card:font-semibold @[14rem]/card:text-[#adbac7] text-sm @[14rem]/card:text-lg">
@@ -37,7 +26,8 @@ export default function MusicRow({
         />
         <div className="h-full overflow-hidden overflow-ellipsis">
           <p>
-            {title} <span className="text-xs font-bold text-[#2a2828]">by</span>{" "}
+            {title}
+            <span className="text-xs font-bold text-[#2a2828]"> by</span>{" "}
             {secondaryInfo}
           </p>
           <Separator className="hidden @xl/card:flex" />
@@ -51,14 +41,9 @@ export default function MusicRow({
     );
   }
 
-  // If rowContainer width is > 36rem, then wrap in LiveWrapper
-  if (rowContainerOffset.current && rowContainerOffset.current > 36 * 16) {
-    return (
-      <LiveWrapper url={url}>
-        <Content />
-      </LiveWrapper>
-    );
-  }
-
-  return <Content />;
+  return (
+    <LiveWrapper url={url} newTab>
+      <Content />
+    </LiveWrapper>
+  );
 }
