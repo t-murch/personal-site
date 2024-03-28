@@ -1,5 +1,6 @@
 import { SSTConfig } from "sst";
 import { WebApp } from "./stacks/WebStack";
+import { MusicAPI } from "./stacks/MusicApiStack";
 
 export default {
   config(_input) {
@@ -9,6 +10,6 @@ export default {
     };
   },
   stacks(app) {
-    app.stack(WebApp);
+    app.stack(MusicAPI).stack(WebApp);
   },
 } satisfies SSTConfig;
