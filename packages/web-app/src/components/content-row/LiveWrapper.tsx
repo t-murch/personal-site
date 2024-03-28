@@ -1,14 +1,21 @@
+import Link from "next/link";
+import React from "react";
+
 function LiveWrapper({
   children,
+  newTab = false,
   url,
 }: {
   children: React.ReactNode;
+  newTab?: boolean;
   url: string;
 }) {
-  return (
-    <a href={url} target="_blank">
+  return newTab ? (
+    <Link href={url} target="_blank">
       {children}
-    </a>
+    </Link>
+  ) : (
+    <Link href={url}>{children}</Link>
   );
 }
 
