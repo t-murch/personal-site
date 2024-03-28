@@ -17,7 +17,7 @@ export default function ThoughtRow({
   let rowContainerOffset = useRef<number>(0);
 
   useEffect(() => {
-    // console.debug("musicRowContainer.current", rowContainerOffset.current);
+    console.debug("musicRowContainer.current", rowContainerOffset.current);
     let rowContainer = document.getElementById("container-card");
     rowContainerOffset.current = rowContainer
       ? rowContainer.offsetWidth

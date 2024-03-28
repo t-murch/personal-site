@@ -1,11 +1,5 @@
 import { ContentRowProps } from "@/components/content-row/contentRow";
 
-type ClientPlaylist = {
-  items: Jam[];
-  name: string;
-  url: string;
-};
-
 type Jam = {
   title: string;
   artist: string;
@@ -52,4 +46,4 @@ export function convertToContentRow<T>(convert: (item: T) => ContentRowProps) {
   };
 }
 
-export type { Activity, Jam, ClientPlaylist };
+export type { Activity, Jam };

@@ -8,12 +8,10 @@ export default function Page() {
     <main className="flex h-full">
       <ListCard
         contentRow={ActivityRow}
-        headerLink="strava"
         title="Recent Activities"
         titleColor="text-orange-500"
         iconPath={StravaIcon}
         items={recentActivities}
-        placement="main"
       />
     </main>
   );
