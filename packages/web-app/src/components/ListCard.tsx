@@ -19,17 +19,6 @@ type IconxRoutes = typeof IconxRoutes;
 
 export type CardPlacementOptions = "main" | "side";
 
-export const IconxRoutes = {
-  home: "/",
-  notion: "/thoughts",
-  spotify: "/music",
-  strava: "/movement",
-} as const;
-
-type IconxRoutes = typeof IconxRoutes;
-
-export type CardPlacementOptions = "main" | "side";
-
 type ListCardProps = {
   contentRow: React.ComponentType<ContentRowProps>;
   headerLink: keyof IconxRoutes;
