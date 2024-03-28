@@ -1,27 +1,16 @@
 import { ClientPlaylist } from "@/types";
-import { atom, useAtom } from "jotai";
-import { useEffect } from "react";
-import { getMusicData } from "./actions/music";
+import { atom } from "jotai";
+import { atomWithSuspenseQuery } from "jotai-tanstack-query";
 
 export const musicDataAtom = atom<ClientPlaylist | null>(null);
 
-export const useMusicData = () => {
-  const [musicData, setMusicData] = useAtom(musicDataAtom);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!musicData) {
-        try {
-          const response = await getMusicData();
-          setMusicData(response);
-        } catch (error) {
-          console.error("Error fetching music data:", error);
-        }
-      }
-    };
-
-    fetchData();
-  }, [setMusicData, musicData]);
-
-  return musicData;
-};
+export const useMusicDataAtom = atomWithSuspenseQuery((get) => ({
+  queryKey: ["musicData", get(musicDataAtom)],
+  queryFn: async () => {
+    // Cannot call this Server Action from the client
+    // return await getMusicData();
+    // TODO: Update with variable for url.
+    const response = await fetch("http://localhost:3000/api/");
+    return await response.json();
+  },
+}));

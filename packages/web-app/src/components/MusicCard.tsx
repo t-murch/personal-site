@@ -1,23 +1,29 @@
 "use client";
 
 import SpotifyIcon from "@/../public/spotify.svg";
-import { useMusicData } from "@/app/store";
+import { useMusicDataAtom } from "@/app/store";
 import { CardPlacementOptions, ListCard } from "@/components/ListCard";
 import MusicRow from "@/components/content-row/MusicRow";
 import { MUSIC_TITLE } from "@/lib/utils";
+import { useAtom } from "jotai";
 
 export function MusicCard({ placement }: { placement: CardPlacementOptions }) {
-  const musicData = useMusicData();
+  const [
+    {
+      data: { items, name },
+    },
+  ] = useAtom(useMusicDataAtom);
+  // const { isLoading, musicData } = useMusicData();
 
   return (
     <div className="flex h-full">
       <ListCard
         contentRow={MusicRow}
         headerLink="spotify"
-        title={musicData?.name || MUSIC_TITLE}
+        title={name || MUSIC_TITLE}
         titleColor="text-green-500"
         iconPath={SpotifyIcon}
-        items={musicData?.items || []}
+        items={items || []}
         placement={placement}
       />
     </div>
