@@ -6,26 +6,39 @@ import { CardPlacementOptions, ListCard } from "@/components/ListCard";
 import MusicRow from "@/components/content-row/MusicRow";
 import { MUSIC_TITLE } from "@/lib/utils";
 import { useAtom } from "jotai";
+import { Suspense } from "react";
+import { ListCardSkeleton } from "./ListCardSkeleton";
 
-export function MusicCard({ placement }: { placement: CardPlacementOptions }) {
+function MusicCardContent({ placement }: { placement: CardPlacementOptions }) {
   const [
     {
       data: { items, name },
     },
   ] = useAtom(useMusicDataAtom);
-  // const { isLoading, musicData } = useMusicData();
 
   return (
-    <div className="flex h-full">
-      <ListCard
-        contentRow={MusicRow}
-        headerLink="spotify"
-        title={name || MUSIC_TITLE}
-        titleColor="text-green-500"
-        iconPath={SpotifyIcon}
-        items={items || []}
-        placement={placement}
-      />
-    </div>
+    <ListCard
+      contentRow={MusicRow}
+      headerLink="spotify"
+      title={name || MUSIC_TITLE}
+      titleColor="text-green-500"
+      iconPath={SpotifyIcon}
+      items={items || []}
+      placement={placement}
+    />
+  );
+}
+
+export function MusicCard({ placement }: { placement: CardPlacementOptions }) {
+  return (
+    <Suspense
+      fallback={
+        <ListCardSkeleton
+        // titleColor="bg-green-500"
+        />
+      }
+    >
+      <MusicCardContent placement={placement} />
+    </Suspense>
   );
 }

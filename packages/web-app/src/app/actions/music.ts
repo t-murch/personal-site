@@ -20,7 +20,7 @@ export async function getMusicData(): Promise<ClientPlaylist> {
         }).response;
 
         data = (await body.json()) as ClientPlaylist;
-        console.debug("data", data.items.at(0));
+        // console.debug("data", data.items.at(0));
       } catch (error) {
         if (error instanceof Error) {
           console.debug(
@@ -31,6 +31,7 @@ export async function getMusicData(): Promise<ClientPlaylist> {
           console.error("error is not of Error type: ", error);
         }
       } finally {
+        console.debug("music data sent...");
         return data;
       }
     },

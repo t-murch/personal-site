@@ -19,8 +19,8 @@ export default function CardHeaderContent({
   titleColor,
 }: CardHeaderContentProps) {
   return (
-    <div className="flex flex-row justify-between pr-1 h-full overflow-hidden text-ellipsis">
-      <div className={`flex gap-1 items-center ${titleColor}`}>
+    <div className="flex flex-row justify-between items-center px-2 h-full overflow-hidden text-ellipsis">
+      <div className={`flex w-4/5 gap-1 items-center ${titleColor}`}>
         <Title
           iconPath={iconPath}
           link={link}
@@ -31,11 +31,11 @@ export default function CardHeaderContent({
       <div>
         {iconPath && (
           <Image
-            className="inline @xl/card:hidden w-[30px] h-[30px]"
+            className="inline @xl/card:hidden w-[25px] h-[25px]"
             src={iconPath}
             alt={`${title}-icon`}
-            width={30}
-            height={30}
+            width={25}
+            height={25}
           />
         )}
         <Link href="/">
@@ -63,13 +63,17 @@ const Title = ({
           height={30}
         />
       )}
-      {title}
+      {/* TODO: Think about if this should stay this way.  */}
+      <span title={title}>{title}</span>
     </>
   );
 
   if (placement === "side") {
     return (
-      <Link href={IconxRoutes[link]}>
+      <Link
+        className="overflow-hidden text-ellipsis whitespace-nowrap"
+        href={IconxRoutes[link]}
+      >
         <TitleContent />
       </Link>
     );
