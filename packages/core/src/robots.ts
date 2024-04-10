@@ -11,8 +11,10 @@ import { Config } from "sst/node/config";
 const GEMINI_BASE_URL = "https://generativelanguage.googleapis.com";
 const MODEL_NAME = "gemini-1.0-pro";
 // const INITIAL_PROMPT = "Based on your resume, I have generated a summary of your experience. Please review the summary and let me know if you would like to make any changes. \n\n";
-const INITIAL_PROMPT =
-  "You are an Senior Engineering Manager reviewing resumes for open FullStack Developer roles. \n\nNow look at the resume below, and answer the following questions in 1-2 sentences.\n\nWhat are this Developers strong suits? \nWhat is the TL;DR of this resume? \n\n,";
+// const INITIAL_PROMPT =
+//   "You are an Senior Engineering Manager reviewing resumes for open FullStack Developer roles. \n\nNow look at the resume below, and answer the following questions in 1-2 sentences.\n\nWhat are this Developers strong suits? \nWhat is the TL;DR of this resume? \n\n,";
+//
+const INITIAL_PROMPT = `Please respond with a JSON object without trailing commas in the form of: \n\t{ \n\t\t"StrongSuits": [Answer/Content as an array of strings with the value being \n\t\t\tsentences.],\n\t\t"TLDR": [Answer/Content as an array of strings with the value being sentences.]\n\t}. The response should start with an "{" and end with an "}".\n\nYou are an Senior Engineering Manager reviewing resumes for open FullStack Developer roles. \n\nNow look at the resume below, and answer the following questions in 4-7 sentences.\n\n[key: "Strong Suits"] - What are this Developers strong suits? \n[key: "TLDR"] - What is the TL;DR of this resume?\n`;
 
 async function parsePdf(fileContent: Buffer): Promise<string> {
   let fileData = "";
@@ -95,7 +97,7 @@ export async function analyze() {
   } catch (error) {
     console.error("Error fetching the data from gemini: ", error);
   }
-  return { text: text };
+  return JSON.parse(text);
 }
 
 async function getResume(s3: AWS.S3): Promise<string> {
