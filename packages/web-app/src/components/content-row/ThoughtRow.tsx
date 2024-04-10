@@ -1,6 +1,6 @@
 "use client";
 
-import NextLogo from "@/../public/next.svg";
+import NextLogo from "@/../public/icons/next.svg";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { Separator } from "../ui/separator";

@@ -1,6 +1,6 @@
 "use client";
 
-import NextLogo from "@/../public/next.svg";
+import NextLogo from "@/../public/icons/next.svg";
 import Image from "next/image";
 import { Separator } from "../ui/separator";
 import { ContentRowProps } from "./contentRow";
@@ -15,14 +15,15 @@ export default function MusicRow({
 }: ContentRowProps) {
   function Content() {
     return (
-      <div className="flex flex-row gap-2 @xl/card:gap-3items-center whitespace-nowrap overflow-hidden overflow-ellipsis @[14rem]/card:font-semibold @[14rem]/card:text-[#adbac7] text-sm @[14rem]/card:text-lg">
+      <div className="flex flex-row gap-2 @xl/card:gap-3 items-center whitespace-nowrap overflow-hidden overflow-ellipsis @[14rem]/card:font-semibold @[14rem]/card:text-[#adbac7] text-sm @[14rem]/card:text-lg">
         <Image
           src={imageLink ?? NextLogo}
-          alt={`${title} album cover`}
+          alt={``}
           width={25}
           height={25}
           className="rounded-md w-[25px] h-[25px]"
-          priority
+          // These rows are all within a list of 50+, so no.
+          // priority
         />
         <div className="h-full overflow-hidden overflow-ellipsis">
           <p>

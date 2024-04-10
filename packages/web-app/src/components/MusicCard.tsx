@@ -1,6 +1,6 @@
 "use client";
 
-import SpotifyIcon from "@/../public/spotify.svg";
+import SpotifyIcon from "@/../public/icons/spotify.svg";
 import { useMusicDataAtom } from "@/app/store";
 import { CardPlacementOptions, ListCard } from "@/components/ListCard";
 import MusicRow from "@/components/content-row/MusicRow";
@@ -30,6 +30,7 @@ function MusicCardContent({ placement }: { placement: CardPlacementOptions }) {
 }
 
 export function MusicCard({ placement }: { placement: CardPlacementOptions }) {
+  // return <ListCardSkeleton />;
   return (
     <Suspense
       fallback={
