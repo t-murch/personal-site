@@ -15,6 +15,10 @@ Amplify.configure(
           endpoint: config.apiGateway.URL_ROBOTS!,
           region: config.apiGateway.REGION,
         },
+        summary: {
+          endpoint: config.apiGateway.URL_STREAMING_ROBOTS!,
+          region: config.apiGateway.REGION,
+        },
       },
     },
   },

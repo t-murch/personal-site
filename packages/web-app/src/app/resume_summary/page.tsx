@@ -2,7 +2,6 @@ import GeminiLogo from "@/../public/icons/gemini.svg";
 import CardHeaderContent from "@/components/CardHeaderContent";
 import { ResumeReview } from "@/components/ResumeReview";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 
 export default async function Page() {
@@ -25,9 +24,9 @@ export default async function Page() {
           <Separator className="@xl/card:my-2" />
         </CardHeader>
         <CardContent className="h-[90%] md:h-2/3 @xl/card:h-4/5 @xl/card:max-h-[4/5] p-2 pt-2">
-          <ScrollArea className="h-[98%]">
-            <ResumeReview />
-          </ScrollArea>
+          {/* <div className="h-[98%]"> */}
+          <ResumeReview />
+          {/* </div> */}
         </CardContent>
       </Card>
     </main>

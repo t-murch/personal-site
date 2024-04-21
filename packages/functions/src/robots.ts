@@ -3,7 +3,7 @@ import * as Robots from "@portfolio-tm/core/robots";
 import { Buffer } from "node:buffer";
 
 export const analyze = handler(async (_event) => {
-  return JSON.stringify(await Robots.analyze());
+  return JSON.stringify(await Robots.tldr());
 });
 
 export const upload = handler(async (event) => {

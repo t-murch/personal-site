@@ -1,44 +1,73 @@
 "use client";
 
-import { useResumeDataAtom } from "@/app/store";
+import { useResumeTLDRDataAtom } from "@/app/store";
 import { useAtom } from "jotai";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
+import config from "../../config";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 
 function ResumeReviewContent() {
-  const [{ data }] = useAtom(useResumeDataAtom);
-  const { StrongSuits, TLDR } = data;
+  const [{ data }] = useAtom(useResumeTLDRDataAtom);
+  const [summary, setSummary] = useState("");
+  const { TLDR } = JSON.parse(data as unknown as string);
 
-  console.debug("StrongSuits", StrongSuits);
-  console.debug("TLDR", TLDR);
-  // return <div>poops</div>;
+  useEffect(() => {
+    const apiUrl = config.apiGateway.URL_STREAMING_ROBOTS!;
+
+    async function fetchSummary() {
+      try {
+        const response = await fetch(apiUrl);
+        console.debug("fetched summary");
+
+        const reader = response.body?.getReader();
+        if (!reader) return;
+        const decoder = new TextDecoder();
+
+        const appendToSummary = (chunk: Uint8Array) => {
+          setSummary((prev) => prev + decoder.decode(chunk));
+        };
+
+        const read = async () => {
+          while (true) {
+            const { done, value } = await reader?.read();
+            if (done) break;
+            appendToSummary(value);
+          }
+        };
+
+        read();
+      } catch (error) {
+        console.error("Error fetching resume summary: ", error);
+      }
+    }
+
+    fetchSummary();
+  }, []);
+
   return (
     <>
-      <h2>
-        Some Strong Suits
-        <ul>
-          {StrongSuits &&
-            StrongSuits.map((strongSuit, idx) => {
-              return (
-                <li key={idx} className="list-none">
-                  {strongSuit}
-                </li>
-              );
-            })}
-        </ul>
-      </h2>
-      <h2>
-        TL;DR
-        <ul>
-          {TLDR &&
-            TLDR.map((tldr, idx) => {
-              return (
-                <li key={idx} className="list-none">
-                  {tldr}
-                </li>
-              );
-            })}
-        </ul>
-      </h2>
+      <Tabs
+        defaultValue="StrongSuits"
+        className="w-full h-full overflow-hidden"
+      >
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="StrongSuits">
+            <h2 className="font-bold">Summary</h2>
+          </TabsTrigger>
+          <TabsTrigger value="TLDR">
+            <h2 className="font-bold">TL;DR</h2>
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="StrongSuits" className="h-full">
+          <p className="font-normal text-base h-full overflow-scroll">
+            {!!summary.length && summary}
+          </p>
+        </TabsContent>
+        <TabsContent value="TLDR">
+          <p className="font-normal text-base">{!!TLDR && TLDR}</p>
+          {/* <p className="font-normal text-base">{"We Testing..."}</p> */}
+        </TabsContent>
+      </Tabs>
     </>
   );
 }

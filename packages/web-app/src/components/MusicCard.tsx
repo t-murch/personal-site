@@ -16,6 +16,7 @@ function MusicCardContent({ placement }: { placement: CardPlacementOptions }) {
     },
   ] = useAtom(useMusicDataAtom);
 
+  // console.log("items: ", items.length);
   return (
     <ListCard
       contentRow={MusicRow}

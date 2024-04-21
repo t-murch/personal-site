@@ -1,20 +1,25 @@
 export * as Robots from "./robots";
 
-import * as PDFJS from "pdfjs-dist";
-const PDFWorker = require("pdfjs-dist/build/pdf.worker.mjs");
-PDFJS.GlobalWorkerOptions.workerSrc = PDFWorker;
 import AWS from "aws-sdk";
 import { Buffer } from "node:buffer";
+import * as PDFJS from "pdfjs-dist";
 import { Bucket } from "sst/node/bucket";
 import { Config } from "sst/node/config";
+const PDFWorker = require("pdfjs-dist/build/pdf.worker.mjs");
+PDFJS.GlobalWorkerOptions.workerSrc = PDFWorker;
 
-const GEMINI_BASE_URL = "https://generativelanguage.googleapis.com";
-const MODEL_NAME = "gemini-1.0-pro";
-// const INITIAL_PROMPT = "Based on your resume, I have generated a summary of your experience. Please review the summary and let me know if you would like to make any changes. \n\n";
+const geminiBaseUrl = "https://generativelanguage.googleapis.com";
+export const MODEL_NAME = "gemini-1.0-pro";
 // const INITIAL_PROMPT =
 //   "You are an Senior Engineering Manager reviewing resumes for open FullStack Developer roles. \n\nNow look at the resume below, and answer the following questions in 1-2 sentences.\n\nWhat are this Developers strong suits? \nWhat is the TL;DR of this resume? \n\n,";
 //
-const INITIAL_PROMPT = `Please respond with a JSON object without trailing commas in the form of: \n\t{ \n\t\t"StrongSuits": [Answer/Content as an array of strings with the value being \n\t\t\tsentences.],\n\t\t"TLDR": [Answer/Content as an array of strings with the value being sentences.]\n\t}. The response should start with an "{" and end with an "}".\n\nYou are an Senior Engineering Manager reviewing resumes for open FullStack Developer roles. \n\nNow look at the resume below, and answer the following questions in 4-7 sentences.\n\n[key: "Strong Suits"] - What are this Developers strong suits? \n[key: "TLDR"] - What is the TL;DR of this resume?\n`;
+
+// We need to update the INITIAL_PROMPT to split it into two different requests
+// So that we can stream the StrongSuits requests back to the user
+// TLDR will still be a single request
+// The return values will be simple strings
+const STRONG_SUITS_PROMPT = `You are an Senior Engineering Manager reviewing resumes for open FullStack Developer roles. \n\nNow look at the resume below, and answer the following question in 7-10 sentences.\n\nWhat are this Developers strong suits? \n\n`;
+const INITIAL_PROMPT = `Please respond with a JSON object without trailing commas in the form of: \n\t{ \n\t\t"StrongSuits": [Answer/Content as an array of strings with the value being \n\t\t\tsentences.],\n\t\t"TLDR": [Answer/Content as an array of strings with the value being sentences.]\n\t}. The response should start with an "{" and end with an "}".\n\nYou are an Senior Engineering Manager reviewing resumes for open FullStack Developer roles. \n\nNow look at the resume below, and answer the following questions in 7-10 sentences.\n\n[key: "Strong Suits"] - What are this Developers strong suits? \n[key: "TLDR"] - What is the TL;DR of this resume?\n`;
 
 async function parsePdf(fileContent: Buffer): Promise<string> {
   let fileData = "";
@@ -43,14 +48,80 @@ async function parsePdf(fileContent: Buffer): Promise<string> {
   return fileData;
 }
 
-export async function analyze() {
-  let text = "";
-  const urlPath = `v1beta/models/${MODEL_NAME}:generateContent?key=${Config.GEMINI_API_KEY}`;
-  // Need to get the resume from the s3 bucket
+export async function analyze(): Promise<string> {
+  console.log("Analyze invoked");
   const s3 = new AWS.S3();
   const resumeText = await getResume(s3);
+  const { urlPath, requestOptions } = getGeminiRequest(
+    resumeText,
+    STRONG_SUITS_PROMPT,
+  );
 
-  const response = await fetch(`${GEMINI_BASE_URL}/${urlPath}`, {
+  const response = await fetch(new URL(urlPath, geminiBaseUrl), requestOptions);
+
+  const data = (await response.json()) as GeminiGenerateContentReturn;
+  const textResponse = data.candidates[0].content.parts[0].text;
+  console.log("Analyze response parsed text: ", textResponse);
+  return textResponse;
+}
+
+export async function tldr(): Promise<string> {
+  console.log("TLDR invoked");
+  const s3 = new AWS.S3();
+  const resumeText = await getResume(s3);
+  const { urlPath, requestOptions } = getGeminiRequest(
+    resumeText,
+    INITIAL_PROMPT,
+  );
+
+  const response = await fetch(new URL(urlPath, geminiBaseUrl), requestOptions);
+
+  const data = (await response.json()) as GeminiGenerateContentReturn;
+  const textResponse = data.candidates[0].content.parts[0].text;
+
+  return textResponse;
+}
+
+export async function getResume(s3: AWS.S3): Promise<string> {
+  let resumeText = "";
+  const params = {
+    Bucket: Bucket.RobotsBucket.bucketName,
+    Key: "samples/tm-resume.txt",
+  };
+
+  try {
+    console.log("Getting resume from s3");
+    const resume = await s3.getObject(params).promise();
+    resumeText = resume.Body?.toString("utf-8") ?? "";
+  } catch (error) {
+    console.error("Error getting the resume from s3: ", error);
+  }
+
+  return resumeText;
+}
+
+// Upload the resume to the s3 bucket
+export async function upload(fileContent: Buffer) {
+  const parsedFile = await parsePdf(fileContent);
+  // console.debug("parsedFile: ", parsedFile + "\n\n");
+  const s3 = new AWS.S3();
+  const params = {
+    Bucket: Bucket.RobotsBucket.bucketName,
+    Key: "samples/tm-resume.txt",
+    Body: parsedFile,
+  };
+
+  await s3.upload(params).promise();
+
+  return "Resume uploaded successfully!";
+}
+
+function getGeminiRequest(
+  resumeText: string,
+  prompt: string,
+): { urlPath: string; requestOptions: RequestInit } {
+  const urlPath = `/v1beta/models/${MODEL_NAME}:generateContent?key=${Config.GEMINI_API_KEY}`;
+  const requestOptions: RequestInit = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -58,7 +129,7 @@ export async function analyze() {
     body: JSON.stringify({
       contents: [
         {
-          parts: [{ text: INITIAL_PROMPT + resumeText }],
+          parts: [{ text: prompt + resumeText }],
         },
       ],
       safetySettings: [
@@ -87,48 +158,7 @@ export async function analyze() {
         stopSequences: [],
       },
     }),
-  });
-
-  try {
-    const { candidates } =
-      (await response.json()) as GeminiGenerateContentReturn;
-    const data = candidates[0].content.parts[0]?.text;
-    text = data;
-  } catch (error) {
-    console.error("Error fetching the data from gemini: ", error);
-  }
-  return JSON.parse(text);
-}
-
-async function getResume(s3: AWS.S3): Promise<string> {
-  let resumeText = "";
-  const params = {
-    Bucket: Bucket.RobotsBucket.bucketName,
-    Key: "samples/tm-resume.txt",
   };
 
-  try {
-    const resume = await s3.getObject(params).promise();
-    resumeText = resume.Body?.toString("utf-8") ?? "";
-  } catch (error) {
-    console.error("Error getting the resume from s3: ", error);
-  }
-
-  return resumeText;
-}
-
-// Upload the resume to the s3 bucket
-export async function upload(fileContent: Buffer) {
-  const parsedFile = await parsePdf(fileContent);
-  // console.debug("parsedFile: ", parsedFile + "\n\n");
-  const s3 = new AWS.S3();
-  const params = {
-    Bucket: Bucket.RobotsBucket.bucketName,
-    Key: "samples/tm-resume.txt",
-    Body: parsedFile,
-  };
-
-  await s3.upload(params).promise();
-
-  return "Resume uploaded successfully!";
+  return { urlPath, requestOptions };
 }

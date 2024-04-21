@@ -1,6 +1,6 @@
 import { getMusicData } from "@/app/actions/music";
 import { NextRequest } from "next/server";
-import { getResumeData } from "../actions/robots";
+import { getResumeTLDRData, streamResumeSummaryData } from "../actions/robots";
 
 export async function GET(_request: NextRequest) {
   const query = _request.nextUrl.searchParams.get("query");
@@ -8,7 +8,9 @@ export async function GET(_request: NextRequest) {
   switch (query) {
     case "music":
       return Response.json(await getMusicData());
-    case "resume":
-      return Response.json(await getResumeData());
+    case "resumeTLDR":
+      return Response.json(await getResumeTLDRData());
+    case "resumeSummary":
+      return Response.json(await streamResumeSummaryData());
   }
 }

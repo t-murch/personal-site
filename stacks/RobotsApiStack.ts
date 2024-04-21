@@ -3,12 +3,12 @@ import { StackContext, Config, Api, Bucket } from "sst/constructs";
 export function RobotsAPI({ stack }: StackContext) {
   const GEMINI_API_KEY = new Config.Secret(stack, "GEMINI_API_KEY");
 
-  const bucket = new Bucket(stack, "RobotsBucket");
+  const resumeBucket = new Bucket(stack, "RobotsBucket");
 
   const api = new Api(stack, "RobotsApi", {
     defaults: {
       function: {
-        bind: [GEMINI_API_KEY, bucket],
+        bind: [GEMINI_API_KEY, resumeBucket],
         nodejs: {
           esbuild: {
             loader: {
@@ -20,7 +20,7 @@ export function RobotsAPI({ stack }: StackContext) {
     },
 
     routes: {
-      "GET /robots/analyze": "packages/functions/src/robots.analyze",
+      "GET /robots/tldr": "packages/functions/src/robots.analyze",
       "POST /robots/upload": "packages/functions/src/robots.upload",
     },
   });
@@ -31,5 +31,7 @@ export function RobotsAPI({ stack }: StackContext) {
 
   return {
     api,
+    GEMINI_API_KEY,
+    resumeBucket,
   };
 }
