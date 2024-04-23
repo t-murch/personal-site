@@ -28,20 +28,15 @@ export default function CardHeaderContent({
           title={title}
         />
       </div>
-      <div>
-        {iconPath && (
-          <Image
-            className="inline @xl/card:hidden w-[25px] h-[25px]"
-            src={iconPath}
-            alt={`${title}-icon`}
-            width={25}
-            height={25}
-          />
-        )}
-        <Link href="/">
-          <Icon name="minimize" className="hidden @xl/card:inline" />
-        </Link>
-      </div>
+      {iconPath && (
+        <Image
+          className="inline @xl/card:hidden w-[25px] h-[25px]"
+          src={iconPath}
+          alt={`${title}-icon`}
+          width={25}
+          height={25}
+        />
+      )}
     </div>
   );
 }

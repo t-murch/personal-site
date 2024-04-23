@@ -3,7 +3,6 @@
 import { runWithAmplifyServerContext } from "@/lib/amplifyServerUtils";
 import { ClientPlaylist } from "@/types";
 import { get } from "aws-amplify/api/server";
-import { unstable_noStore as noStore } from "next/cache";
 import { cookies } from "next/headers";
 
 export async function getMusicData(): Promise<ClientPlaylist> {

@@ -1,6 +1,6 @@
 export function AboutMe() {
   return (
-    <div className="flex">
+    <div className="flex flex-col gap-2">
       <p className="text-lg">
         A software developer with ~5 years of experience based in Austin, TX. I
         work across the stack with a specialization in front-end development
@@ -14,7 +14,8 @@ export function AboutMe() {
         React and/or Java, resolving bugs reported by clients, QEs, or support
         staff. Navigate to the Resume Summary page, or check out my LinkedIn for
         details there.
-      </p>
+      </p>{" "}
+      <span>Code for the site can be found on my Github.</span>
       {/* Hi there, it&apos;s me. */}
     </div>
   );
