@@ -19,10 +19,10 @@ export const ListCardSkeleton: React.FC<ListCardSkeletonProps> = ({
     <Card className="h-full w-full">
       <div className={`animate-pulse ${height} p-2`}>
         <CardHeader
-          className={`h-1/3 @xl/card:h-1/5 @xl/card:text-4xl flex-row justify-between items-center px-2 pt-2 pb-0 font-bold overflow-hidden`}
+          className={`h-1/3 @xl/card:h-1/5 @xl/card:text-4xl flex-row justify-start gap-4 items-center px-2 pt-2 pb-0 font-bold overflow-hidden`}
         >
-          <div className={`${titleColor} w-3/4 h-5 rounded`} />
-          <div className={`${titleColor} w-6 h-6 mt-0 rounded`} />
+          <div className={`${titleColor} w-20 h-24 rounded`} />
+          <div className={`${titleColor} w-3/4 h-20 m-0 rounded`} />
         </CardHeader>
         <Separator className="my-1" />
         <CardContent className="h-2/3 @xl/card:h-4/5 @xl/card:max-h-[4/5] p-2 pt-2">

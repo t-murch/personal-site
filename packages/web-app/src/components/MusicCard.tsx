@@ -1,30 +1,30 @@
 "use client";
 
 import SpotifyIcon from "@/../public/icons/spotify.svg";
-import { useMusicDataAtom } from "@/app/store";
+import { musicDataAtom } from "@/app/store";
 import { CardPlacementOptions, ListCard } from "@/components/ListCard";
 import MusicRow from "@/components/content-row/MusicRow";
 import { MUSIC_TITLE } from "@/lib/utils";
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { Suspense } from "react";
 import { ListCardSkeleton } from "./ListCardSkeleton";
 
 function MusicCardContent({ placement }: { placement: CardPlacementOptions }) {
-  const [
-    {
-      data: { items, name },
-    },
-  ] = useAtom(useMusicDataAtom);
+  // const [
+  //   {
+  //     data: { items, name },
+  //   },
+  // ] = useAtom(useMusicDataAtom);
+  const data = useAtomValue(musicDataAtom);
 
-  // console.log("items: ", items.length);
   return (
     <ListCard
       contentRow={MusicRow}
       headerLink="spotify"
-      title={name || MUSIC_TITLE}
+      title={data?.name || ""}
       titleColor="text-green-500"
       iconPath={SpotifyIcon}
-      items={items || []}
+      items={data?.items || []}
       placement={placement}
     />
   );

@@ -51,11 +51,11 @@ const Title = ({
     <>
       {iconPath && (
         <Image
-          className="hidden @xl/card:inline w-[30px] h-[30px]"
+          className="hidden @xl/card:inline w-[50px] h-[50px]"
           src={iconPath}
           alt={`${title}-icon`}
-          width={30}
-          height={30}
+          width={50}
+          height={50}
         />
       )}
       {/* TODO: Think about if this should stay this way.  */}

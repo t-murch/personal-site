@@ -14,7 +14,9 @@ export async function NavigationBar() {
           className="flex flex-row h-full gap-1 items-center"
         >
           <Icon name="linkedin" alt="linkedin-icon" size={25} color="#0a66c2" />
-          <p className="text-lg font-bold mb-[-0.3rem]">LinkedIn</p>
+          <p className="hidden md:flex text-lg font-bold mb-[-0.3rem]">
+            LinkedIn
+          </p>
         </a>
         <a
           href="https://github.com/t-murch"
@@ -23,7 +25,9 @@ export async function NavigationBar() {
           className="flex flex-row h-full gap-1 items-center"
         >
           <Icon name="github" size={25} color="#adbac7" />
-          <p className="text-lg font-bold mb-[-0.3rem]">GitHub</p>
+          <p className="hidden md:flex text-lg font-bold mb-[-0.3rem]">
+            GitHub
+          </p>
         </a>
       </div>
 

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-function useMediaQuery(query: string): boolean {
+function useMediaQuery(query: string = "(min-width: 768px)"): boolean {
   const [value, setValue] = React.useState(false);
 
   React.useEffect(() => {

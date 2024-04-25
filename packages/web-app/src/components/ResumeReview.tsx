@@ -1,15 +1,16 @@
 "use client";
 
-import { useResumeTLDRDataAtom } from "@/app/store";
-import { useAtom } from "jotai";
+import { resumeDataAtom } from "@/app/store";
+import { useAtomValue } from "jotai";
 import { Suspense, useEffect, useState } from "react";
 import config from "../../config";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 
 function ResumeReviewContent() {
-  const [{ data }] = useAtom(useResumeTLDRDataAtom);
+  // const [{ data }] = useAtom(useResumeTLDRDataAtom);
+  const data = useAtomValue(resumeDataAtom);
   const [summary, setSummary] = useState("");
-  const { TLDR } = JSON.parse(data as unknown as string);
+  const TLDR = data?.TLDR ?? "";
 
   useEffect(() => {
     const apiUrl = config.apiGateway.URL_STREAMING_ROBOTS!;

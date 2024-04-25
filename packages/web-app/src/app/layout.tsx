@@ -30,7 +30,7 @@ export default function RootLayout({
               <div className="flex h-full w-full gap-2 flex-col items-center justify-between">
                 <header className="flex h-[10%] md:h-1/5 max-h-[20%] w-full">
                   <Card className="flex flex-row w-full gap-2 py-1 px-2 items-end">
-                    <h1 className="text-xl md:text-2xl font-bold">
+                    <h1 className="text-xl md:text-6xl font-bold">
                       A dev building and learning.
                     </h1>
                   </Card>
