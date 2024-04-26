@@ -67,7 +67,10 @@ export function ListCard({
                 : activityToContentRow(listItem as Activity);
 
             return (
-              <div key={index}>
+              <div
+                key={index}
+                className="rounded-t-md hover:shadow-inner hover:shadow-gray-500/50"
+              >
                 <ContentRow
                   title={item.title}
                   secondaryInfo={item.secondaryInfo}

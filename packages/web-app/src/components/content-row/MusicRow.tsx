@@ -15,7 +15,7 @@ export default function MusicRow({
 }: ContentRowProps) {
   function Content() {
     return (
-      <div className="flex flex-row min-h-10 @[14rem]/car:min-h-14 gap-2 @xl/card:gap-3 items-center whitespace-nowrap overflow-hidden overflow-ellipsis @[14rem]/card:font-semibold @[14rem]/card:text-[#adbac7] text-sm @[14rem]/card:text-lg">
+      <div className="flex flex-row min-h-10 px-2 @[14rem]/card:min-h-14 gap-2 @xl/card:gap-3 items-center whitespace-nowrap overflow-hidden overflow-ellipsis @[14rem]/card:font-semibold @[14rem]/card:text-[#adbac7] text-sm @[14rem]/card:text-lg">
         <Image
           src={imageLink ?? NextLogo}
           alt={``}
