@@ -1,14 +1,14 @@
 "use client";
 
 import { getMusicData } from "@/app/actions/music";
-import { musicDataAtom } from "@/app/store";
 import { atom, useAtom } from "jotai";
+import { musicDataRW } from "@/app/store";
 import { useEffect } from "react";
 
 const loadingAtom = atom(false);
 
 export default function MyLoader() {
-  const [musicData, setMusicData] = useAtom(musicDataAtom);
+  const [musicData, setMusicData] = useAtom(musicDataRW);
   const [isLoading, setIsLoading] = useAtom(loadingAtom);
 
   useEffect(() => {

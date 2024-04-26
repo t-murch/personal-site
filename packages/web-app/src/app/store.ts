@@ -4,7 +4,13 @@ import { atomWithSuspenseQuery } from "jotai-tanstack-query";
 import { ReviewParts } from "./actions/robots";
 // import { getSSTHost } from "./actions/util-server-actions";
 
-export const musicDataAtom = atom<ClientPlaylist | null>(null);
+const musicDataAtom = atom<ClientPlaylist | null>(null);
+export const musicData = atom((get) => get(musicDataAtom));
+export const musicDataRW = atom(
+  (get) => get(musicDataAtom),
+  (_get, set, newData: ClientPlaylist) => set(musicDataAtom, { ...newData }),
+);
+
 export const resumeDataAtom = atom<ReviewParts | null>(null);
 const APP_DOMAIN =
   process.env.NEXT_PUBLIC_APP_DOMAIN ?? "http://localhost:3000";
