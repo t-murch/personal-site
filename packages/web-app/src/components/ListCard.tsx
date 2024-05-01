@@ -38,13 +38,8 @@ export function ListCard({
   items,
 }: ListCardProps): JSX.Element {
   return (
-    <Card
-      id={`container-card`}
-      className="@container/card h-full w-full text-xl"
-    >
-      <CardHeader
-        className={`h-[10%] md:h-1/3 @xl/card:h-1/5 @xl/card:text-4xl px-2 pt-2 pb-0 font-bold overflow-hidden text-ellipsis text-nowrap`}
-      >
+    <Card id="container-card" className="@container/card h-full w-full text-xl">
+      <CardHeader className="h-[10%] md:h-1/3 @xl/card:h-1/5 @xl/card:text-4xl px-2 pt-2 pb-0 font-bold overflow-hidden text-ellipsis text-nowrap">
         <CardHeaderContent
           iconPath={iconPath}
           link={headerLink}
@@ -55,7 +50,7 @@ export function ListCard({
         <Separator className="@xl/card:my-2" />
       </CardHeader>
       <CardContent className="h-[90%] md:h-2/3 @xl/card:h-4/5 @xl/card:max-h-[4/5] p-2 pt-2">
-        <ScrollArea className="h-[98%]">
+        <ScrollArea className="h-[98%] w-full">
           {items.map((listItem, index) => {
             // Will need to refactor this once I have the third type
             const itemType: "jam" | "activity" = (listItem as Jam)?.album
@@ -69,7 +64,7 @@ export function ListCard({
             return (
               <div
                 key={index}
-                className="rounded-t-md hover:shadow-inner hover:shadow-gray-500/50"
+                className="w-full rounded-t-md active:shadow-inner active:shadow-gray-500/50 md:hover:shadow-inner md:hover:shadow-gray-500/50"
               >
                 <ContentRow
                   title={item.title}

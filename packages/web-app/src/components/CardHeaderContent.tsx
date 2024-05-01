@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import Icon from "@/components/Icon";
 import { CardPlacementOptions, IconxRoutes } from "./ListCard";
+import { TooltipxPopover } from "./TooltipxPopover";
 
 type CardHeaderContentProps = {
   iconPath: string;
@@ -32,7 +32,7 @@ export default function CardHeaderContent({
         <Image
           className="inline @xl/card:hidden w-[25px] h-[25px]"
           src={iconPath}
-          alt={`${title}-icon`}
+          alt={`${link.slice(0, 1).toUpperCase() + link.slice(1)}-icon`}
           width={25}
           height={25}
         />
@@ -53,13 +53,14 @@ const Title = ({
         <Image
           className="hidden @xl/card:inline w-[50px] h-[50px]"
           src={iconPath}
-          alt={`${title}-icon`}
+          alt={`${link.slice(0, 1).toUpperCase() + link.slice(1)}-icon`}
           width={50}
           height={50}
         />
       )}
       {/* TODO: Think about if this should stay this way.  */}
       <span title={title}>{title}</span>
+      <TooltipxPopover />
     </>
   );
 

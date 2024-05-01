@@ -1,5 +1,6 @@
 export * as Robots from "./robots";
 
+import { ReviewParts } from "../../web-app/src/types";
 import AWS from "aws-sdk";
 import { Buffer } from "node:buffer";
 import * as PDFJS from "pdfjs-dist";
@@ -61,11 +62,11 @@ export async function analyze(): Promise<string> {
 
   const data = (await response.json()) as GeminiGenerateContentReturn;
   const textResponse = data.candidates[0].content.parts[0].text;
-  console.log("Analyze response parsed text: ", textResponse);
+  // console.log("Analyze response parsed text: ", textResponse);
   return textResponse;
 }
 
-export async function tldr(): Promise<string> {
+export async function tldr(): Promise<ReviewParts> {
   console.log("TLDR invoked");
   const s3 = new AWS.S3();
   const resumeText = await getResume(s3);
@@ -78,8 +79,9 @@ export async function tldr(): Promise<string> {
 
   const data = (await response.json()) as GeminiGenerateContentReturn;
   const textResponse = data.candidates[0].content.parts[0].text;
+  const parsedData = JSON.parse(textResponse) as ReviewParts;
 
-  return textResponse;
+  return parsedData;
 }
 
 export async function getResume(s3: AWS.S3): Promise<string> {

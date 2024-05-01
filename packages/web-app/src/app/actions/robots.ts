@@ -1,14 +1,14 @@
 "use server";
 
 import { runWithAmplifyServerContext } from "@/lib/amplifyServerUtils";
+import { ReviewParts } from "@/types";
 import { get } from "aws-amplify/api/server";
 import { cookies } from "next/headers";
 
 export type ResumePayload = { text: ReviewParts };
-export type ReviewParts = { StrongSuits: string; TLDR: string };
 
 export async function getResumeTLDRData(): Promise<ReviewParts> {
-  let data: ReviewParts = { StrongSuits: "", TLDR: "" };
+  let data: ReviewParts = {} as ReviewParts;
   console.debug("getting resume data...");
 
   return await runWithAmplifyServerContext({
@@ -31,6 +31,8 @@ export async function getResumeTLDRData(): Promise<ReviewParts> {
           console.error("error is not of Error type: ", error);
         }
       } finally {
+        // // return after 5 second delay
+        // await new Promise((resolve) => setTimeout(resolve, 5000));
         console.debug("resume data sent...");
         return data;
       }
@@ -38,8 +40,8 @@ export async function getResumeTLDRData(): Promise<ReviewParts> {
   });
 }
 
-export async function getResumeSummaryData(): Promise<ReviewParts> {
-  let data: ReviewParts = {} as ReviewParts;
+export async function getResumeSummaryData(): Promise<string> {
+  let data = "";
   console.debug("getting resume data...");
 
   return await runWithAmplifyServerContext({
@@ -47,11 +49,11 @@ export async function getResumeSummaryData(): Promise<ReviewParts> {
     operation: async (context) => {
       try {
         const { body } = await get(context, {
-          apiName: "summary",
-          path: "/",
+          apiName: "robots",
+          path: "/robots/summary",
         }).response;
 
-        data = (await body.json()) as ReviewParts;
+        data = await body.text();
       } catch (error) {
         if (error instanceof Error) {
           console.debug(

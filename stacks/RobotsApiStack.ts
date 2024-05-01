@@ -21,6 +21,7 @@ export function RobotsAPI({ stack }: StackContext) {
 
     routes: {
       "GET /robots/tldr": "packages/functions/src/robots.analyze",
+      "GET /robots/summary": "packages/functions/src/robots.getResumeSummary",
       "POST /robots/upload": "packages/functions/src/robots.upload",
     },
   });

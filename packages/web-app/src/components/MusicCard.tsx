@@ -1,15 +1,15 @@
 "use client";
 
 import SpotifyIcon from "@/../public/icons/spotify.svg";
-import { musicDataRW } from "@/app/store";
 import { CardPlacementOptions, ListCard } from "@/components/ListCard";
 import MusicRow from "@/components/content-row/MusicRow";
-import { useAtom } from "jotai";
 import { Suspense } from "react";
 import { ListCardSkeleton } from "./ListCardSkeleton";
+import { getMusicData } from "@/app/actions/music";
+import { useQuery } from "@tanstack/react-query";
 
 function MusicCardContent({ placement }: { placement: CardPlacementOptions }) {
-  const [data] = useAtom(musicDataRW);
+  const { data } = useQuery({ queryKey: ["musicData"], queryFn: getMusicData });
 
   return (
     <ListCard
@@ -25,14 +25,9 @@ function MusicCardContent({ placement }: { placement: CardPlacementOptions }) {
 }
 
 export function MusicCard({ placement }: { placement: CardPlacementOptions }) {
+  // return <ListCardSkeleton />;
   return (
-    <Suspense
-      fallback={
-        <ListCardSkeleton
-        // titleColor="bg-green-500"
-        />
-      }
-    >
+    <Suspense fallback={<ListCardSkeleton />}>
       <MusicCardContent placement={placement} />
     </Suspense>
   );

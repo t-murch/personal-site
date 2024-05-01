@@ -6,6 +6,10 @@ export const analyze = handler(async (_event) => {
   return JSON.stringify(await Robots.tldr());
 });
 
+export const getResumeSummary = handler(async (_event) => {
+  return await Robots.analyze();
+});
+
 export const upload = handler(async (event) => {
   const body = Buffer.from(event?.body ?? "", "base64");
   return JSON.stringify(await Robots.upload(body));
