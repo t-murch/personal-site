@@ -1,14 +1,13 @@
 "use client";
 
-import RideIcon from "@/../public/ride.svg";
-import RunIcon from "@/../public/run.svg";
-import WorkoutIcon from "@/../public/workout.svg";
-import NextLogo from "@/../public/next.svg";
+import NextLogo from "@/../public/icons/next.svg";
+import RideIcon from "@/../public/icons/ride.svg";
+import RunIcon from "@/../public/icons/run.svg";
+import WorkoutIcon from "@/../public/icons/workout.svg";
 import Image from "next/image";
-import { ContentRowProps } from "./contentRow";
-import LiveWrapper from "./LiveWrapper";
-import { Separator } from "../ui/separator";
 import { useEffect, useRef } from "react";
+import { Separator } from "../ui/separator";
+import { ContentRowProps } from "./contentRow";
 
 function iconSelector(type: string) {
   const titleLower = type.toLowerCase();

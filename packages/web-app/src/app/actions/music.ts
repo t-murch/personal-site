@@ -3,7 +3,6 @@
 import { runWithAmplifyServerContext } from "@/lib/amplifyServerUtils";
 import { ClientPlaylist } from "@/types";
 import { get } from "aws-amplify/api/server";
-import { unstable_noStore as noStore } from "next/cache";
 import { cookies } from "next/headers";
 
 export async function getMusicData(): Promise<ClientPlaylist> {
@@ -20,7 +19,7 @@ export async function getMusicData(): Promise<ClientPlaylist> {
         }).response;
 
         data = (await body.json()) as ClientPlaylist;
-        console.debug("data", data.items.at(0));
+        // console.debug("data", data.items.at(0));
       } catch (error) {
         if (error instanceof Error) {
           console.debug(
@@ -31,6 +30,7 @@ export async function getMusicData(): Promise<ClientPlaylist> {
           console.error("error is not of Error type: ", error);
         }
       } finally {
+        console.debug("music data sent...");
         return data;
       }
     },

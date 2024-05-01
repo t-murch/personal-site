@@ -1,31 +1,34 @@
 "use client";
 
-import SpotifyIcon from "@/../public/spotify.svg";
-import { useMusicDataAtom } from "@/app/store";
+import SpotifyIcon from "@/../public/icons/spotify.svg";
 import { CardPlacementOptions, ListCard } from "@/components/ListCard";
 import MusicRow from "@/components/content-row/MusicRow";
-import { MUSIC_TITLE } from "@/lib/utils";
-import { useAtom } from "jotai";
+import { Suspense } from "react";
+import { ListCardSkeleton } from "./ListCardSkeleton";
+import { getMusicData } from "@/app/actions/music";
+import { useQuery } from "@tanstack/react-query";
 
-export function MusicCard({ placement }: { placement: CardPlacementOptions }) {
-  const [
-    {
-      data: { items, name },
-    },
-  ] = useAtom(useMusicDataAtom);
-  // const { isLoading, musicData } = useMusicData();
+function MusicCardContent({ placement }: { placement: CardPlacementOptions }) {
+  const { data } = useQuery({ queryKey: ["musicData"], queryFn: getMusicData });
 
   return (
-    <div className="flex h-full">
-      <ListCard
-        contentRow={MusicRow}
-        headerLink="spotify"
-        title={name || MUSIC_TITLE}
-        titleColor="text-green-500"
-        iconPath={SpotifyIcon}
-        items={items || []}
-        placement={placement}
-      />
-    </div>
+    <ListCard
+      contentRow={MusicRow}
+      headerLink="spotify"
+      title={data?.name || ""}
+      titleColor="text-green-500"
+      iconPath={SpotifyIcon}
+      items={data?.items || []}
+      placement={placement}
+    />
+  );
+}
+
+export function MusicCard({ placement }: { placement: CardPlacementOptions }) {
+  // return <ListCardSkeleton />;
+  return (
+    <Suspense fallback={<ListCardSkeleton />}>
+      <MusicCardContent placement={placement} />
+    </Suspense>
   );
 }

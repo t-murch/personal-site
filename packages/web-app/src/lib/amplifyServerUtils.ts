@@ -6,7 +6,15 @@ export const { runWithAmplifyServerContext } = createServerRunner({
     API: {
       REST: {
         music: {
-          endpoint: config.apiGateway.URL!,
+          endpoint: config.apiGateway.URL_MUSIC!,
+          region: config.apiGateway.REGION,
+        },
+        robots: {
+          endpoint: config.apiGateway.URL_ROBOTS!,
+          region: config.apiGateway.REGION,
+        },
+        summary: {
+          endpoint: config.apiGateway.URL_STREAMING_ROBOTS!,
           region: config.apiGateway.REGION,
         },
       },

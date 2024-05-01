@@ -1,4 +1,4 @@
-import NotionIcon from "@/../public/notion.svg";
+import NotionIcon from "@/../public/icons/notion.svg";
 import { ListCard } from "@/components/ListCard";
 import ThoughtRow from "@/components/content-row/ThoughtRow";
 

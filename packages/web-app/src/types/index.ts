@@ -1,5 +1,7 @@
 import { ContentRowProps } from "@/components/content-row/contentRow";
 
+/* MUSIC TYPES */
+
 type ClientPlaylist = {
   items: Jam[];
   name: string;
@@ -23,6 +25,10 @@ export function jamToContentRow(jam: Jam): ContentRowProps {
     url: jam.url,
   };
 }
+
+/* ROBOTS TYPES */
+
+type ReviewParts = { StrongSuits: string[]; TLDR: string[] };
 
 type Activity = {
   name: string;
@@ -52,4 +58,4 @@ export function convertToContentRow<T>(convert: (item: T) => ContentRowProps) {
   };
 }
 
-export type { Activity, Jam, ClientPlaylist };
+export type { Activity, Jam, ClientPlaylist, ReviewParts };

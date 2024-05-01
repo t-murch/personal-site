@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import Icon from "@/components/Icon";
 import { CardPlacementOptions, IconxRoutes } from "./ListCard";
+import { TooltipxPopover } from "./TooltipxPopover";
 
 type CardHeaderContentProps = {
   iconPath: string;
@@ -19,8 +19,8 @@ export default function CardHeaderContent({
   titleColor,
 }: CardHeaderContentProps) {
   return (
-    <div className="flex flex-row justify-between pr-1 h-full overflow-hidden text-ellipsis">
-      <div className={`flex gap-1 items-center ${titleColor}`}>
+    <div className="flex flex-row justify-between items-center px-2 h-full overflow-hidden text-ellipsis">
+      <div className={`flex w-4/5 gap-1 items-center ${titleColor}`}>
         <Title
           iconPath={iconPath}
           link={link}
@@ -28,20 +28,15 @@ export default function CardHeaderContent({
           title={title}
         />
       </div>
-      <div>
-        {iconPath && (
-          <Image
-            className="inline @xl/card:hidden w-[30px] h-[30px]"
-            src={iconPath}
-            alt={`${title}-icon`}
-            width={30}
-            height={30}
-          />
-        )}
-        <Link href="/">
-          <Icon name="minimize" className="hidden @xl/card:inline" />
-        </Link>
-      </div>
+      {iconPath && (
+        <Image
+          className="inline @xl/card:hidden w-[25px] h-[25px]"
+          src={iconPath}
+          alt={`${link.slice(0, 1).toUpperCase() + link.slice(1)}-icon`}
+          width={25}
+          height={25}
+        />
+      )}
     </div>
   );
 }
@@ -56,20 +51,25 @@ const Title = ({
     <>
       {iconPath && (
         <Image
-          className="hidden @xl/card:inline w-[30px] h-[30px]"
+          className="hidden @xl/card:inline w-[50px] h-[50px]"
           src={iconPath}
-          alt={`${title}-icon`}
-          width={30}
-          height={30}
+          alt={`${link.slice(0, 1).toUpperCase() + link.slice(1)}-icon`}
+          width={50}
+          height={50}
         />
       )}
-      {title}
+      {/* TODO: Think about if this should stay this way.  */}
+      <span title={title}>{title}</span>
+      <TooltipxPopover />
     </>
   );
 
   if (placement === "side") {
     return (
-      <Link href={IconxRoutes[link]}>
+      <Link
+        className="overflow-hidden text-ellipsis whitespace-nowrap"
+        href={IconxRoutes[link]}
+      >
         <TitleContent />
       </Link>
     );
