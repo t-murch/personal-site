@@ -6,6 +6,7 @@ import CardHeaderContent from "./CardHeaderContent";
 import { ResumeReview } from "./ResumeReview";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import Icon from "./Icon";
+import { TooltipxPopover } from "./TooltipxPopover";
 
 export function ResumeCard() {
   return (
@@ -22,7 +23,7 @@ export function ResumeCard() {
           iconPath={GeminiLogo}
           link={"gemini"}
           placement={"main"}
-          title={"Resume Summary"}
+          TitleJSX={ResumeTitle}
           titleColor={"#FFF"}
         />
         {/* <Icon name="info" size={25} /> */}
@@ -34,5 +35,15 @@ export function ResumeCard() {
         {/* </div> */}
       </CardContent>
     </Card>
+  );
+}
+
+function ResumeTitle() {
+  const title = "Resume Summary";
+  return (
+    <>
+      <span title={title}>{title}</span>
+      <TooltipxPopover />
+    </>
   );
 }

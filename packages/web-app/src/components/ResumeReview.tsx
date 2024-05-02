@@ -21,12 +21,12 @@ function ResumeReviewContent() {
             <h2 className="font-bold">TL;DR</h2>
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="StrongSuits">
+        <TabsContent value="StrongSuits" className="h-full">
           <Suspense fallback={<ResumeReviewSkeleton />}>
             <ResumeSummary />
           </Suspense>
         </TabsContent>
-        <TabsContent value="TLDR">
+        <TabsContent value="TLDR" className="h-full">
           <Suspense fallback={<ResumeReviewSkeleton />}>
             <TLDRContent />
           </Suspense>

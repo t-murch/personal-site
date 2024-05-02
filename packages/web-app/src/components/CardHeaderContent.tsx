@@ -7,7 +7,7 @@ type CardHeaderContentProps = {
   iconPath: string;
   link: keyof typeof IconxRoutes;
   placement: CardPlacementOptions;
-  title: string;
+  TitleJSX: () => JSX.Element;
   titleColor: string;
 };
 
@@ -15,7 +15,7 @@ export default function CardHeaderContent({
   iconPath,
   link,
   placement,
-  title,
+  TitleJSX,
   titleColor,
 }: CardHeaderContentProps) {
   return (
@@ -25,7 +25,7 @@ export default function CardHeaderContent({
           iconPath={iconPath}
           link={link}
           placement={placement}
-          title={title}
+          TitleJSX={TitleJSX}
         />
       </div>
       {iconPath && (
@@ -45,7 +45,7 @@ const Title = ({
   iconPath,
   link,
   placement,
-  title,
+  TitleJSX,
 }: Omit<CardHeaderContentProps, "titleColor">) => {
   const TitleContent = () => (
     <>
@@ -59,8 +59,7 @@ const Title = ({
         />
       )}
       {/* TODO: Think about if this should stay this way.  */}
-      <span title={title}>{title}</span>
-      <TooltipxPopover />
+      <TitleJSX />
     </>
   );
 

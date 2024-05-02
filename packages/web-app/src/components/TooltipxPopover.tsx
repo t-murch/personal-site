@@ -28,7 +28,7 @@ function GeminiToolTip() {
     <>
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger className="self-baseline">
+          <TooltipTrigger className="self-baseline cursor-default">
             <Icon name="info" size={25} />
           </TooltipTrigger>
           <TooltipContent className="border bg-[rgb(12, 10, 9)] text-white max-h-20">

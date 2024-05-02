@@ -2,7 +2,7 @@ export function AboutMe() {
   return (
     <div className="flex flex-col gap-2">
       <p className="text-lg">
-        A software developer with ~5 years of experience based in Austin, TX. I
+        A software developer with 4+ years of experience based in Austin, TX. I
         work across the stack with a specialization in front-end development
         building solutions in NodeJS with TypeScript. I believe in maintaining
         high standards, open communication, and an us mindset in accomplishing

@@ -37,6 +37,8 @@ export function ListCard({
   iconPath,
   items,
 }: ListCardProps): JSX.Element {
+  const titleJSX = () => <span>{title}</span>;
+
   return (
     <Card id="container-card" className="@container/card h-full w-full text-xl">
       <CardHeader className="h-[10%] md:h-1/3 @xl/card:h-1/5 @xl/card:text-4xl px-2 pt-2 pb-0 font-bold overflow-hidden text-ellipsis text-nowrap">
@@ -44,7 +46,7 @@ export function ListCard({
           iconPath={iconPath}
           link={headerLink}
           placement={placement}
-          title={title}
+          TitleJSX={titleJSX}
           titleColor={titleColor}
         />
         <Separator className="@xl/card:my-2" />
