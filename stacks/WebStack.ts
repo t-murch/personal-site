@@ -10,8 +10,14 @@ export function WebApp({ stack, app }: StackContext) {
   const APP_PROTO_DOMAIN = new Config.Secret(stack, "APP_PROTO_DOMAIN");
 
   const site = new NextjsSite(stack, "Site", {
-    // bind: [APP_PROTO_DOMAIN],
     path: "packages/web-app",
+    customDomain: {
+      domainName:
+        stack.stage === "prod"
+          ? "toddmurch.dev"
+          : `${stack.stage}.toddmurch.dev`,
+      domainAlias: stack.stage === "prod" ? "www.toddmurch.dev" : undefined,
+    },
     environment: {
       NEXT_PUBLIC_APP_DOMAIN: APP_PROTO_DOMAIN.toString(),
       NEXT_PUBLIC_REGION: app.region,
