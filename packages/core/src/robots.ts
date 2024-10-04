@@ -4,8 +4,7 @@ import { ReviewParts } from "../../web-app/src/types";
 import AWS from "aws-sdk";
 import { Buffer } from "node:buffer";
 import * as PDFJS from "pdfjs-dist";
-import { Bucket } from "sst/node/bucket";
-import { Config } from "sst/node/config";
+import { Resource } from "sst";
 const PDFWorker = require("pdfjs-dist/build/pdf.worker.mjs");
 PDFJS.GlobalWorkerOptions.workerSrc = PDFWorker;
 
@@ -87,7 +86,7 @@ export async function tldr(): Promise<ReviewParts> {
 export async function getResume(s3: AWS.S3): Promise<string> {
   let resumeText = "";
   const params = {
-    Bucket: Bucket.RobotsBucket.bucketName,
+    Bucket: Resource.RobotsBucket.name,
     Key: "samples/tm-resume.txt",
   };
 
@@ -108,7 +107,7 @@ export async function upload(fileContent: Buffer) {
   // console.debug("parsedFile: ", parsedFile + "\n\n");
   const s3 = new AWS.S3();
   const params = {
-    Bucket: Bucket.RobotsBucket.bucketName,
+    Bucket: Resource.RobotsBucket.name,
     Key: "samples/tm-resume.txt",
     Body: parsedFile,
   };
@@ -122,7 +121,7 @@ function getGeminiRequest(
   resumeText: string,
   prompt: string,
 ): { urlPath: string; requestOptions: RequestInit } {
-  const urlPath = `/v1beta/models/${MODEL_NAME}:generateContent?key=${Config.GEMINI_API_KEY}`;
+  const urlPath = `/v1beta/models/${MODEL_NAME}:generateContent?key=${Resource.GEMINI_API_KEY.value}`;
   const requestOptions: RequestInit = {
     method: "POST",
     headers: {
