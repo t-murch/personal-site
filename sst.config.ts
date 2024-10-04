@@ -1,17 +1,21 @@
-import { SSTConfig } from "sst";
-import { MusicAPI } from "./stacks/MusicApiStack";
-import { RobotsAPI } from "./stacks/RobotsApiStack";
-import { StreamingRobotAPI } from "./stacks/StreamingRobotApiStack";
-import { WebApp } from "./stacks/WebStack";
+/// <reference path="./.sst/platform/config.d.ts" />
 
-export default {
-  config(_input) {
+export default $config({
+  app(input) {
     return {
       name: "portfolio-tm",
-      region: "us-east-2",
+      home: "aws",
+      removal: input?.stage === "production" ? "retain" : "remove",
     };
   },
-  stacks(app) {
-    app.stack(RobotsAPI).stack(StreamingRobotAPI).stack(MusicAPI).stack(WebApp);
+
+  async run() {
+    await import("./infra/RobotsApi");
+    await import("./infra/StreamingRobotApi");
+    await import("./infra/MusicApi");
+    await import("./infra/Web");
+    return {
+      Region: aws.getRegionOutput().name,
+    };
   },
-} satisfies SSTConfig;
+});

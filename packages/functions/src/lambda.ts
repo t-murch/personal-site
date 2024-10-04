@@ -1,4 +1,4 @@
-import { ApiHandler } from "sst/node/api";
+import { ApiHandler } from "sstv2/node/api";
 
 const handler = ApiHandler(async (_evt) => {
   return {

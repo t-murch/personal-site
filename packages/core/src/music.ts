@@ -1,8 +1,8 @@
 export * as Music from "./music";
 
-import { Config } from "sst/node/config";
 import { ClientPlaylist, Jam } from "../../web-app/src/types";
 import { Playlist } from "./test-data";
+import { Resource } from "sst";
 
 const TOP_50_USA_PLAYLIST_ID = "37i9dQZEVXbLRQDuF5jeBp";
 const TOP_50_GLOBAL_PLAYLIST_ID = "37i9dQZEVXbMDoHDwVN2tF";
@@ -75,7 +75,7 @@ async function getAccessToken(): Promise<AuthResponse> {
       Authorization:
         "Basic " +
         Buffer.from(
-          Config.SPOTIFY_API_ID + ":" + Config.SPOTIFY_API_KEY,
+          Resource.SPOTIFY_API_ID.value + ":" + Resource.SPOTIFY_API_KEY.value,
         ).toString("base64"),
       ContentType: "application/x-www-form-urlencoded",
     },
