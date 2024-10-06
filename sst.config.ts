@@ -10,12 +10,14 @@ export default $config({
   },
 
   async run() {
-    await import("./infra/RobotsApi");
-    await import("./infra/StreamingRobotApi");
+    await import("./infra/Storage");
     await import("./infra/MusicApi");
+    await import("./infra/RobotsApi");
+    const streamingRobotApi = await import("./infra/StreamingRobotApi");
     await import("./infra/Web");
     return {
       Region: aws.getRegionOutput().name,
+      streamUrl: streamingRobotApi.streamingRobotAPI.url,
     };
   },
 });
