@@ -22,7 +22,8 @@ const SPOTIFY_API_BASE = "https://api.spotify.com/v1/";
  * Created using the Spotify API Console: https://developer.spotify.com/documentation/web-api/reference/get-playlist
  * fields: name,href,tracks.items(track(name,href,album(name,href),artists(name))
  */
-export async function popularPlaylist() {
+export async function popularPlaylist(tokenFunc: () => Promise<AuthResponse>) {
+  //TODO: validate with ZOD
   let data: Playlist = {} as Playlist;
   const playlistId = SPOTIFY_PLAYLISTS[new Date().getDay() % 3];
 
@@ -33,7 +34,7 @@ export async function popularPlaylist() {
     "fields=name,href,tracks.items(track(name,external_urls.spotify,album(name,images),artists(name)))";
 
   try {
-    const { access_token: accessToken } = await getAccessToken();
+    const { access_token: accessToken } = await tokenFunc();
     //TODO: Make the fields more robust with a url query builder
     const response = await fetch(
       SPOTIFY_API_BASE + `playlists/${playlistId}?${fields}`,
@@ -43,13 +44,24 @@ export async function popularPlaylist() {
         },
       },
     );
+    /**
+     *
+     * data:  {
+     * "error": {
+     * "status": 400,
+     * "message": "Only valid bearer authentication supported"
+     * }
+     * }
+     */
+    if (!response.ok) {
+      return { error: "Token exchange failed" };
+    }
     data = await response.json().then((data) => data as Playlist);
-    // console.debug(
-    //   "data[0]: ",
-    //   JSON.stringify(data.tracks.items.at(0), null, 2),
-    // );
+    // console.debug("data: ", JSON.stringify(data, null, 2));
   } catch (error) {
-    console.error("Error fetching Spotify API: ", error);
+    // console.error("Error fetching Spotify API: ", error);
+    console.error("Token exchange failed");
+    // throw error;
   }
 
   // Convert the Spotify API response to our internal representation.
@@ -68,7 +80,7 @@ export async function popularPlaylist() {
 }
 
 // All Spotify API Requests require an access token.
-async function getAccessToken(): Promise<AuthResponse> {
+export async function getAccessToken(): Promise<AuthResponse> {
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
