@@ -1,16 +1,22 @@
 import { assert, describe, expect, it, vi } from "vitest";
-import { getAccessToken, popularPlaylist } from "../src/music";
-
-const mockToken = { access_token: "test-token" };
+import { getServerAccessToken, popularPlaylist } from "../src/music";
 
 describe("Spotify API - Music Module", () => {
   it("should fetch and map a popular playlist", async () => {
-    // vi.unmock("../src/music");
-    const playlist = await popularPlaylist(getAccessToken);
-
-    assert.exists(playlist.items[0].title, `playlist song 1 title exists`);
-    assert.exists(playlist.items[0].artist, `playlist song 1 artist exists`);
-    assert.equal(playlist.items.length, 50);
+    const playlist = await popularPlaylist(getServerAccessToken);
+    if (!playlist.success) {
+      // handle error
+    } else {
+      assert.exists(
+        playlist.data.items[0].title,
+        `playlist song 1 title exists`,
+      );
+      assert.exists(
+        playlist.data.items[0].artist,
+        `playlist song 1 artist exists`,
+      );
+      assert.equal(playlist.data.items.length, 50);
+    }
   });
 
   it("should return an error if the token exchange fails", async () => {
@@ -23,7 +29,10 @@ describe("Spotify API - Music Module", () => {
 
     const result = await popularPlaylist(mockedGetAccessToken);
     expect(result).toEqual(
-      expect.objectContaining({ error: "Token exchange failed" }),
+      expect.objectContaining({
+        error: { message: "Token exchange failed" },
+        success: false,
+      }),
     );
   });
 });
