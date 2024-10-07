@@ -68,7 +68,7 @@ export async function popularPlaylist() {
 }
 
 // All Spotify API Requests require an access token.
-async function getAccessToken(): Promise<AuthResponse> {
+export async function getAccessToken(): Promise<AuthResponse> {
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {

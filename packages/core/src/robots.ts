@@ -9,6 +9,11 @@ import { Buffer } from "node:buffer";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { Resource } from "sst";
 import { ReviewParts } from "../../web-app/src/types";
+import * as PDFJS from "pdfjs-dist";
+PDFJS.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.mjs",
+  import.meta.url,
+).toString();
 
 const geminiBaseUrl = "https://generativelanguage.googleapis.com";
 export const MODEL_NAME = "gemini-1.0-pro";
