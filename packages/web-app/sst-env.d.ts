@@ -5,12 +5,37 @@ import "sst"
 export {}
 declare module "sst" {
   export interface Resource {
+    "GEMINI_API_KEY": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "MusicApi": {
+      "type": "sst.aws.ApiGatewayV2"
+      "url": string
+    }
     "RobotsAPI": {
       "type": "sst.aws.ApiGatewayV2"
       "url": string
     }
+    "RobotsBucket": {
+      "name": string
+      "type": "sst.aws.Bucket"
+    }
+    "SPOTIFY_API_ID": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "SPOTIFY_API_KEY": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
     "Site": {
       "type": "sst.aws.Nextjs"
+      "url": string
+    }
+    "StreamingRobotApiFunction": {
+      "name": string
+      "type": "sst.aws.Function"
       "url": string
     }
   }
