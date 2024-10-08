@@ -5,6 +5,10 @@ export const allowedOrigins = $dev ? ["http://localhost:3000"] : prodOrigin;
 
 export const musicApi = new sst.aws.ApiGatewayV2("MusicApi", {
   cors: { allowMethods: ["GET"], allowOrigins: allowedOrigins },
+  domain: {
+    name:
+      $app.stage === "prod" ? "toddmurch.dev" : `${$app.stage}.toddmurch.dev`,
+  },
   transform: {
     route: {
       handler: {
