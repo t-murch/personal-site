@@ -16,6 +16,7 @@
     "@aws-sdk/client-s3": "^3.665.0",
     "aws-lambda": "^1.0.7",
     "pdfjs-dist": "^4.7.76",
+    "playwright": "^1.47.2",
     "zod": "^3.23.8"
   }
 }
