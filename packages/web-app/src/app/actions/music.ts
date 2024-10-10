@@ -15,11 +15,14 @@ export async function getMusicData(): Promise<ClientPlaylist> {
       try {
         const { body } = await get(context, {
           apiName: "music",
-          path: "/music/popular",
+          path: "/music/topItems",
         }).response;
 
-        data = (await body.json()) as ClientPlaylist;
-        // console.debug("data", data.items.at(0));
+        const response = (await body.json()) as {
+          data: ClientPlaylist;
+          success: boolean;
+        };
+        data = response.data;
       } catch (error) {
         if (error instanceof Error) {
           console.debug(

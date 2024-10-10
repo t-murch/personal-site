@@ -20,4 +20,3 @@ export const WebApp = new sst.aws.Nextjs("Site", {
     NEXT_PUBLIC_STREAMING_ROBOT_API_URL: streamingRobotAPI.url!,
   },
 });
-// }

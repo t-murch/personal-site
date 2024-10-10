@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 function MusicCardContent({ placement }: { placement: CardPlacementOptions }) {
   const { data } = useQuery({ queryKey: ["musicData"], queryFn: getMusicData });
 
+  // console.debug(`data in component? = ${JSON.stringify(data, null, 2)}`);
   return (
     <ListCard
       contentRow={MusicRow}
