@@ -13,6 +13,11 @@ declare module "sst" {
       "type": "sst.aws.ApiGatewayV2"
       "url": string
     }
+    "PuppeteerApiFunction": {
+      "name": string
+      "type": "sst.aws.Function"
+      "url": string
+    }
     "RobotsAPI": {
       "type": "sst.aws.ApiGatewayV2"
       "url": string
@@ -29,6 +34,10 @@ declare module "sst" {
       "type": "sst.sst.Secret"
       "value": string
     }
+    "SPOT_AUTH_REDIRECT_URL": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
     "Site": {
       "type": "sst.aws.Nextjs"
       "url": string
@@ -37,6 +46,14 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Function"
       "url": string
+    }
+    "UserBucket": {
+      "name": string
+      "type": "sst.aws.Bucket"
+    }
+    "UserPass": {
+      "type": "sst.sst.Secret"
+      "value": string
     }
   }
 }

@@ -17,6 +17,7 @@ type Jam = {
 };
 
 export function jamToContentRow(jam: Jam): ContentRowProps {
+  // console.debug(`do we have a jam? = ${JSON.stringify(jam)}`);
   return {
     title: jam.title,
     secondaryInfo: jam.artist,

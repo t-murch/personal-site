@@ -40,11 +40,12 @@ export function NavigationContent() {
             <Link href="/resume_summary" className="flex flex-row">
               Resume Summary{" "}
               <Image
+                alt=""
                 className="pb-2 h-8 w-8"
+                height={32}
+                priority
                 src={GeminiLogo}
                 width={32}
-                height={32}
-                alt=""
               />
             </Link>
           </SheetClose>
