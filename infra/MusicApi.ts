@@ -17,7 +17,9 @@ export const musicApi = new sst.aws.ApiGatewayV2("MusicApi", {
   cors: { allowMethods: ["GET"], allowOrigins: allowedOrigins },
   domain: {
     name:
-      $app.stage === "prod" ? "toddmurch.dev" : `${$app.stage}.toddmurch.dev`,
+      $app.stage === "prod"
+        ? "toddmurch.dev"
+        : `${$app.stage}.api.music.toddmurch.dev`,
   },
   transform: {
     route: {
