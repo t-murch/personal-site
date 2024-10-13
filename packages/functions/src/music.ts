@@ -27,7 +27,7 @@ export const getTopItems = handler(async (_event) => {
     console.log(`Refreshing Access Token`);
     const refreshResponse = await Music.refreshAccessToken();
     if (!refreshResponse.success) {
-      const errorMsg = `Failed to refresh token. error: ${refreshResponse?.error}`;
+      const errorMsg = `Failed to refresh token. error: ${JSON.stringify(refreshResponse?.error)}`;
       console.error(errorMsg);
       return JSON.stringify({ success: false, error: errorMsg });
     }

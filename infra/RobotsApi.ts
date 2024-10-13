@@ -13,6 +13,7 @@ export const robotsApi = new sst.aws.ApiGatewayV2("RobotsAPI", {
     route: {
       handler: {
         nodejs: {
+          install: ["pdfjs-dist"],
           loader: {
             ".node": "file",
           },

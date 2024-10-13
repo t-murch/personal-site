@@ -138,7 +138,7 @@ const GeminiGenerateContentReturnPayload = {
 type GeminiGenerateContentReturnType =
   typeof GeminiGenerateContentReturnPayload;
 
-type GeminiGenerateContentReturn = {
+export type GeminiGenerateContentReturn = {
   candidates: Candidate[];
   promptFeedback: PromptFeedback;
 };

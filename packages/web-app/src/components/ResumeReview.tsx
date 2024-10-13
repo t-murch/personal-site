@@ -1,16 +1,13 @@
-"use client";
-
 import { Suspense } from "react";
 import { TLDRContent } from "./ResumeTLDR";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { ResumeSummary } from "./ResumeSummary";
 
-function ResumeReviewContent() {
+export function ResumeReview() {
   return (
     <>
       <Tabs
-        // defaultValue="StrongSuits"
-        defaultValue="TLDR"
+        defaultValue="StrongSuits"
         className="w-full h-full overflow-hidden"
       >
         <TabsList className="grid w-full grid-cols-2">
@@ -34,10 +31,6 @@ function ResumeReviewContent() {
       </Tabs>
     </>
   );
-}
-
-export function ResumeReview() {
-  return <ResumeReviewContent />;
 }
 
 const skeletonWidths = ["w-3/4", "w-4/5", "w-[90%]"] as const;

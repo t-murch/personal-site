@@ -59,7 +59,6 @@ export async function requestUserAuth(): Promise<any> {
   await page.waitForSelector(`div ::-p-text(Continue as)`);
   console.debug(`found selector=Continue as`);
   await page.locator(`div ::-p-text(Continue as)`).click();
-  debugger;
 
   await handleURLError(page, "Error Step 3 Auth.");
 

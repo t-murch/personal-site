@@ -10,6 +10,7 @@ import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { Resource } from "sst";
 import { ReviewParts } from "../../web-app/src/types";
 import * as PDFJS from "pdfjs-dist";
+import { GeminiGenerateContentReturn } from "./utils/types";
 PDFJS.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.mjs",
   import.meta.url,
@@ -31,7 +32,10 @@ const INITIAL_PROMPT = `Please respond with a JSON object without trailing comma
 async function parsePdf(fileContent: Buffer): Promise<string> {
   let fileData = "";
   try {
-    const loadPdf = await getDocument(new Uint8Array(fileContent)).promise;
+    const loadPdf = await getDocument({
+      data: new Uint8Array(fileContent),
+      useSystemFonts: true,
+    }).promise;
     const pages = loadPdf.numPages;
     // parse the text from the pdf document
     let text = "";
@@ -56,6 +60,7 @@ async function parsePdf(fileContent: Buffer): Promise<string> {
 
 export async function analyze(): Promise<string> {
   console.log("Analyze invoked");
+  let data: GeminiGenerateContentReturn | null = null;
   const s3 = new S3Client({});
   // const s3 = new AWS.S3();
   const resumeText = await getResume(s3);
@@ -63,13 +68,17 @@ export async function analyze(): Promise<string> {
     resumeText,
     STRONG_SUITS_PROMPT,
   );
+  try {
+    const response = await fetch(
+      new URL(urlPath, geminiBaseUrl),
+      requestOptions,
+    );
+    data = (await response.json()) as GeminiGenerateContentReturn;
+  } catch (error) {}
 
-  const response = await fetch(new URL(urlPath, geminiBaseUrl), requestOptions);
-
-  const data = (await response.json()) as GeminiGenerateContentReturn;
-  const textResponse = data.candidates[0].content.parts[0].text;
-  // console.log("Analyze response parsed text: ", textResponse);
-  return textResponse;
+  const textResponse = data?.candidates[0].content.parts[0].text;
+  console.log("Analyze response parsed text: ", textResponse);
+  return textResponse ?? "";
 }
 
 export async function tldr(): Promise<ReviewParts> {
@@ -100,8 +109,8 @@ export async function getResume(s3: S3Client): Promise<string> {
   try {
     console.log("Getting resume from s3");
     const resume = await s3.send(new GetObjectCommand(params));
-    // const resume = await s3.getObject(params).promise();
     resumeText = (await resume.Body?.transformToString()) ?? "";
+    // console.debug(`resume text from s3 = ${resumeText}`);
     // resumeText = resume.Body?.toString("utf-8") ?? "";
   } catch (error) {
     console.error("Error getting the resume from s3: ", error);

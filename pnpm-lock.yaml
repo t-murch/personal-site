@@ -63,6 +63,9 @@ importers:
       '@sparticuz/chromium':
         specifier: 127.0.0
         version: 127.0.0
+      pdfjs-dist:
+        specifier: ^4.7.76
+        version: 4.7.76
     devDependencies:
       '@types/aws-lambda':
         specifier: ^8.10.136

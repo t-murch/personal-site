@@ -4,6 +4,7 @@ import { getResumeTLDRData, streamResumeSummaryData } from "../actions/robots";
 
 export async function GET(_request: NextRequest) {
   const query = _request.nextUrl.searchParams.get("query");
+  console.log(`route hit, query = ${query}`);
 
   switch (query) {
     case "music":
@@ -11,6 +12,6 @@ export async function GET(_request: NextRequest) {
     case "resumeTLDR":
       return Response.json(await getResumeTLDRData());
     case "resumeSummary":
-      return Response.json(await streamResumeSummaryData());
+      return await streamResumeSummaryData();
   }
 }

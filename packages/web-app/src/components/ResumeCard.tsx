@@ -1,5 +1,3 @@
-"use client";
-
 import GeminiLogo from "@/../public/icons/gemini.svg";
 import { Separator } from "@radix-ui/react-separator";
 import CardHeaderContent from "./CardHeaderContent";
@@ -17,8 +15,6 @@ export function ResumeCard() {
       <CardHeader
         className={`h-[10%] md:h-1/3 @xl/card:h-1/5 @xl/card:text-4xl px-2 pt-2 pb-0 font-bold`}
       >
-        {/* <div className="flex flex-row"> */}
-        {/* </div> */}
         <CardHeaderContent
           iconPath={GeminiLogo}
           link={"gemini"}
@@ -26,13 +22,10 @@ export function ResumeCard() {
           TitleJSX={ResumeTitle}
           titleColor={"#FFF"}
         />
-        {/* <Icon name="info" size={25} /> */}
         <Separator className="@xl/card:my-2" />
       </CardHeader>
       <CardContent className="h-[90%] md:h-2/3 @xl/card:h-4/5 @xl/card:max-h-[4/5] p-2 pt-2">
-        {/* <div className="h-[98%]"> */}
         <ResumeReview />
-        {/* </div> */}
       </CardContent>
     </Card>
   );

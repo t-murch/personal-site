@@ -15,7 +15,8 @@ export async function getResumeTLDRData(): Promise<ReviewParts> {
     nextServerContext: { cookies },
     operation: async (context) => {
       try {
-        const { body } = await get(context, {
+        // const { body } = await get(context, {
+        const { body, statusCode } = await get(context, {
           apiName: "robots",
           path: "/robots/tldr",
         }).response;
@@ -49,14 +50,15 @@ export async function getResumeSummaryData(): Promise<string> {
     operation: async (context) => {
       try {
         const { body } = await get(context, {
-          apiName: "robots",
-          path: "/robots/summary",
+          apiName: "summary",
+          path: "/",
         }).response;
 
-        data = await body.text();
+        // data = await body.text();
+        console.log(`body = ${await body.json()}`);
       } catch (error) {
         if (error instanceof Error) {
-          console.debug(
+          console.error(
             "error getting resume: ",
             JSON.stringify(error, null, 2),
           );
@@ -107,7 +109,7 @@ async function* makeIterator(content: string) {
 }
 
 export async function streamResumeSummaryData() {
-  const resumeSummaryData = JSON.stringify(await getResumeSummaryData());
+  const resumeSummaryData = JSON.stringify(await getResumeTLDRData());
   const iterator = makeIterator(resumeSummaryData);
   const stream = iteratorToStream(iterator);
 
