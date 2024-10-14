@@ -42,11 +42,6 @@ declare module "sst" {
       "type": "sst.aws.Nextjs"
       "url": string
     }
-    "StreamingRobotApiFunction": {
-      "name": string
-      "type": "sst.aws.Function"
-      "url": string
-    }
     "UserBucket": {
       "name": string
       "type": "sst.aws.Bucket"

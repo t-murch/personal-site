@@ -6,10 +6,7 @@ import { ResumeSummary } from "./ResumeSummary";
 export function ResumeReview() {
   return (
     <>
-      <Tabs
-        defaultValue="StrongSuits"
-        className="w-full h-full overflow-hidden"
-      >
+      <Tabs defaultValue="TLDR" className="w-full h-full overflow-hidden">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="StrongSuits">
             <h2 className="font-bold">Summary</h2>

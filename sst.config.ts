@@ -13,12 +13,10 @@ export default $config({
     await import("./infra/Storage");
     await import("./infra/MusicApi");
     await import("./infra/RobotsApi");
-    const streamingRobotApi = await import("./infra/StreamingRobotApi");
     const puppeteerApi = await import("./infra/PuppeteerApi");
     await import("./infra/Web");
     return {
       Region: aws.getRegionOutput().name,
-      streamUrl: streamingRobotApi.streamingRobotAPI.url,
       puppeteerUrl: puppeteerApi.puppeteerAPI.url,
     };
   },

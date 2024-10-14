@@ -2,7 +2,7 @@ import handler from "@portfolio-tm/core/handler";
 import * as Robots from "@portfolio-tm/core/robots";
 import { Buffer } from "node:buffer";
 
-export const analyze = handler(async (_event) => {
+export const tldr = handler(async (_event) => {
   return JSON.stringify(await Robots.tldr());
 });
 

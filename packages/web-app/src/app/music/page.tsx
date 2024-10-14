@@ -1,24 +1,13 @@
+import { ListCardSkeleton } from "@/components/ListCardSkeleton";
 import { MusicCard } from "@/components/MusicCard";
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from "@tanstack/react-query";
-import { getMusicData } from "../actions/music";
+import { Suspense } from "react";
 
 export default async function Page() {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery({
-    queryKey: ["musicData"],
-    queryFn: getMusicData,
-  });
-
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <main className="flex h-full w-full">
+    <main className="flex h-full w-full">
+      <Suspense fallback={<ListCardSkeleton />}>
         <MusicCard placement="main" />
-      </main>
-    </HydrationBoundary>
+      </Suspense>
+    </main>
   );
 }

@@ -74,10 +74,13 @@ export async function analyze(): Promise<string> {
       requestOptions,
     );
     data = (await response.json()) as GeminiGenerateContentReturn;
-  } catch (error) {}
+  } catch (error) {
+    console.error(
+      `Error at Gemini API. error = ${JSON.stringify(error ?? {})}`,
+    );
+  }
 
   const textResponse = data?.candidates[0].content.parts[0].text;
-  console.log("Analyze response parsed text: ", textResponse);
   return textResponse ?? "";
 }
 

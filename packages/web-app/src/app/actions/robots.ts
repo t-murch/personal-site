@@ -50,20 +50,17 @@ export async function getResumeSummaryData(): Promise<string> {
     operation: async (context) => {
       try {
         const { body } = await get(context, {
-          apiName: "summary",
-          path: "/",
+          apiName: "robots",
+          path: "/robots/summary",
         }).response;
 
-        // data = await body.text();
-        console.log(`body = ${await body.json()}`);
+        data = await body.text();
       } catch (error) {
+        const errorMsg = `error getting resume: `;
         if (error instanceof Error) {
-          console.error(
-            "error getting resume: ",
-            JSON.stringify(error, null, 2),
-          );
+          console.error(errorMsg + error.message);
         } else {
-          console.error("error is not of Error type: ", error);
+          console.error(errorMsg);
         }
       } finally {
         console.debug("resume data sent...");
@@ -109,7 +106,7 @@ async function* makeIterator(content: string) {
 }
 
 export async function streamResumeSummaryData() {
-  const resumeSummaryData = JSON.stringify(await getResumeTLDRData());
+  const resumeSummaryData = JSON.stringify(await getResumeSummaryData());
   const iterator = makeIterator(resumeSummaryData);
   const stream = iteratorToStream(iterator);
 

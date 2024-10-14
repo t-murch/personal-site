@@ -24,7 +24,7 @@ export const robotsApi = new sst.aws.ApiGatewayV2("RobotsAPI", {
   },
 });
 
-robotsApi.route("GET /robots/tldr", "packages/functions/src/robots.analyze");
+robotsApi.route("GET /robots/tldr", "packages/functions/src/robots.tldr");
 robotsApi.route(
   "GET /robots/summary",
   "packages/functions/src/robots.getResumeSummary",
