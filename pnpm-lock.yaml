@@ -189,11 +189,6 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
-  '@aws-amplify/adapter-nextjs@1.2.21':
-    resolution: {integrity: sha512-/83oJXT3pBtiCVIUh4OPYXAbeqNUywSyx+MVvCMm6sFY2HjnDm5bF/eKq0gRuvdBEnCAkU346be1fBcTYjQAuw==}
-    peerDependencies:
-      aws-amplify: ^6.0.7
-      next: '>=13.5.0 <15.0.0'
 
   '@aws-amplify/analytics@7.0.51':
     resolution: {integrity: sha512-6y2lbIeg7k+ClN7C91wOfFcntr/Um8sqr7N16oZVAWayT8JcEG8ddQW1tlfYremcKS4N4IwmQDGOkMw/WivXgw==}
@@ -1807,9 +1802,6 @@ packages:
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
-
-  aws-amplify@6.6.4:
-    resolution: {integrity: sha512-B5AM+sN+1taNIPAuy5mWwvpvRHSsOSB4iHDV5vAt2v0/eglbIrq+FJDym258te/0z6EtdxgdaFaEF6zwVWzjnQ==}
 
   aws-cdk-lib@2.132.1:
     resolution: {integrity: sha512-VheC7WcvmxiteNaZPucS9J9haGQZwbUtwNiNqsbTaEiru6ETUhf/yIOIamLto1kOKEPxCw2bfLkgYrWoCzwOpw==}

@@ -59,4 +59,8 @@ export function convertToContentRow<T>(convert: (item: T) => ContentRowProps) {
   };
 }
 
-export type { Activity, Jam, ClientPlaylist, ReviewParts };
+type GeneralResponse<T, E> =
+  | { data: T; success: true }
+  | { error: E; success: false };
+
+export type { Activity, GeneralResponse, Jam, ClientPlaylist, ReviewParts };

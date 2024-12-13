@@ -1,3 +1,4 @@
+import { getResumeSummaryData } from "@/app/actions/robots";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -33,5 +34,21 @@ async function* streamingFetch(url: string) {
         console.warn(error?.message ?? "Error in stream consumption.");
       }
     }
+  }
+}
+
+export async function delayFetch(
+  apiCall: () => Promise<any>,
+  delay: number = 1500,
+) {
+  await new Promise((resolve) => setTimeout(resolve, delay));
+  return await apiCall();
+}
+
+export function parseError(error: any) {
+  if (error instanceof Error) {
+    return error.message;
+  } else {
+    return String(error);
   }
 }

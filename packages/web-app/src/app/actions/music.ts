@@ -1,41 +1,45 @@
 "use server";
 
-import { runWithAmplifyServerContext } from "@/lib/amplifyServerUtils";
-import { ClientPlaylist } from "@/types";
-import { get } from "aws-amplify/api/server";
-import { cookies } from "next/headers";
+import { parseError } from "@/lib/utils";
+import { ClientPlaylist, GeneralResponse } from "@/types";
+import { Resource } from "sst";
 
-export async function getMusicData(): Promise<ClientPlaylist> {
+const MUSIC_API = Resource.MusicApi.url;
+console.log(`MUSIC_API: ${MUSIC_API}`);
+
+export async function getMusicData(): Promise<
+  GeneralResponse<ClientPlaylist, { message: string }>
+> {
   // noStore();
-  let data: ClientPlaylist = {} as ClientPlaylist;
-  console.debug("getting music data...");
-  return await runWithAmplifyServerContext({
-    nextServerContext: { cookies },
-    operation: async (context) => {
-      try {
-        const { body } = await get(context, {
-          apiName: "music",
-          path: "/music/topItems",
-        }).response;
-
-        const response = (await body.json()) as {
-          data: ClientPlaylist;
-          success: boolean;
-        };
-        data = response.data;
-      } catch (error) {
-        if (error instanceof Error) {
-          console.debug(
-            "error getting music: ",
-            JSON.stringify(error, null, 2),
-          );
-        } else {
-          console.error("error is not of Error type: ", error);
-        }
-      } finally {
-        console.debug("music data sent...");
-        return data;
-      }
+  console.log("getting music data...");
+  const response = await fetch(`${MUSIC_API}/music/topItems`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
     },
   });
+
+  const data: GeneralResponse<ClientPlaylist, { message: string }> =
+    await response.json().catch((error) => {
+      let errorMsg = parseError(error);
+
+      return {
+        error: { message: errorMsg },
+        success: false,
+      };
+    });
+
+  if (!data.success) {
+    console.error(
+      `error fetching top items. error: ${JSON.stringify(data.error)}`,
+    );
+    return { error: { message: `Error fetching top items.` }, success: false };
+  }
+
+  console.log(
+    `top items acquired. one item: ${JSON.stringify(data.data.items[0])}`,
+  );
+
+  console.log("music data sent...");
+  return { data: data.data, success: true };
 }

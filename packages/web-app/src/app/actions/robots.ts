@@ -1,73 +1,56 @@
 "use server";
 
-import { runWithAmplifyServerContext } from "@/lib/amplifyServerUtils";
-import { ReviewParts } from "@/types";
-import { get } from "aws-amplify/api/server";
-import { cookies } from "next/headers";
+import { parseError } from "@/lib/utils";
+import { GeneralResponse, ReviewParts } from "@/types";
+import { Resource } from "sst";
 
+const ROBOTS_API = Resource.RobotsAPI.url;
 export type ResumePayload = { text: ReviewParts };
 
-export async function getResumeTLDRData(): Promise<ReviewParts> {
-  let data: ReviewParts = {} as ReviewParts;
+export async function getResumeTLDRData(): Promise<
+  GeneralResponse<ReviewParts, { message: string }>
+> {
   console.debug("getting resume data...");
 
-  return await runWithAmplifyServerContext({
-    nextServerContext: { cookies },
-    operation: async (context) => {
-      try {
-        // const { body } = await get(context, {
-        const { body, statusCode } = await get(context, {
-          apiName: "robots",
-          path: "/robots/tldr",
-        }).response;
-
-        data = (await body.json()) as ReviewParts;
-      } catch (error) {
-        if (error instanceof Error) {
-          console.debug(
-            "error getting resume: ",
-            JSON.stringify(error, null, 2),
-          );
-        } else {
-          console.error("error is not of Error type: ", error);
-        }
-      } finally {
-        // // return after 5 second delay
-        // await new Promise((resolve) => setTimeout(resolve, 5000));
-        console.debug("resume data sent...");
-        return data;
-      }
+  const response = await fetch(`${ROBOTS_API}/robots/tldr`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
     },
   });
+
+  let data: ReviewParts = await response.json().catch((error) => {
+    let errorMsg = parseError(error);
+
+    return {
+      error: { message: errorMsg },
+      success: false,
+    };
+  });
+
+  console.debug("resume data sent...");
+  return { data, success: true };
 }
 
-export async function getResumeSummaryData(): Promise<string> {
-  let data = "";
+export async function getResumeSummaryData(): Promise<
+  GeneralResponse<string, { message: string }>
+> {
   console.debug("getting resume data...");
 
-  return await runWithAmplifyServerContext({
-    nextServerContext: { cookies },
-    operation: async (context) => {
-      try {
-        const { body } = await get(context, {
-          apiName: "robots",
-          path: "/robots/summary",
-        }).response;
-
-        data = await body.text();
-      } catch (error) {
-        const errorMsg = `error getting resume: `;
-        if (error instanceof Error) {
-          console.error(errorMsg + error.message);
-        } else {
-          console.error(errorMsg);
-        }
-      } finally {
-        console.debug("resume data sent...");
-        return data;
-      }
+  const response = await fetch(`${ROBOTS_API}/robots/summary`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
     },
   });
+
+  const data: string = await response.text().catch((error) => {
+    let errorMsg = parseError(error);
+    return { error: { message: errorMsg }, success: false };
+  });
+
+  console.debug("resume data sent...");
+  return { data, success: true };
 }
 
 // https://developer.mozilla.org/docs/Web/API/ReadableStream#convert_async_iterator_to_stream

@@ -5,7 +5,6 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import AmplifyConfig from "@/app/ui/AmplifyConfig";
 import { ReactNode } from "react";
 
 function makeQueryClient() {
@@ -50,9 +49,6 @@ export default function Providers({
   const queryClient = getQueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AmplifyConfig />
-      {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 }
