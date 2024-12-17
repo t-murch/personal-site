@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,30 +19,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className}`}>
-        <div
-          className={`flex min-h-screen h-screen flex-col items-center justify-between p-8`}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-background`}>
+        <ThemeProvider
+          attribute="class"
+          enableSystem
+          defaultTheme="system"
+          disableTransitionOnChange
         >
-          {/* BEGINNING OF LAYOUT */}
+          <div className={`relative flex min-h-svh flex-col p-8`}>
+            {/* BEGINNING OF LAYOUT */}
 
-          <Providers>
-            <div className="flex h-full w-full flex-row md:gap-2">
-              <div className="flex h-full w-full gap-2 flex-col items-center justify-between">
-                <header className="flex h-[10%] md:h-1/5 max-h-[20%] w-full">
-                  <Card className="flex flex-row w-full gap-2 py-1 px-2 items-end">
+            <Providers>
+              {/* <div className="flex w-full flex-row md:gap-2"> */}
+              <div className="flex-1 grid grid-rows-10 grid-cols-1 gap-2">
+                <header className="row-span-1 md:row-span-2">
+                  <Card className="flex h-full py-1 px-2 items-end">
                     <h1 className="text-xl md:text-3xl lg:text-6xl inline font-bold">
                       A dev building and learning.
                     </h1>
                   </Card>
                 </header>
-                <section className="hidden h-0 w-0 md:flex md:h-[10%] md:max-h-[10%] md:w-full">
+                <section className="hidden md:block row-span-1 md:w-full">
                   <NavigationBar />
                 </section>
-                <section className="flex flex-col h-4/5 max-h-[80%] md:h-[70%] md:max-h-[70%] w-full">
+                <section className="row-span-8 md:row-span-7 w-full">
                   {children}
                 </section>
-                <section className="md:hidden h-[10%] max-h-[10%] w-full">
+                <section className="md:hidden row-span-1 w-full">
                   <NavigationBar />
                 </section>
               </div>
@@ -74,10 +79,11 @@ export default function RootLayout({
               {/*     /> */}
               {/*   </article> */}
               {/* </section> */}
-            </div>
-          </Providers>
-          {/* END OF LAYOUT */}
-        </div>
+              {/* </div> */}
+            </Providers>
+            {/* END OF LAYOUT */}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

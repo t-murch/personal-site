@@ -17,6 +17,7 @@ export async function getResumeTLDRData(): Promise<
     headers: {
       "Content-Type": "application/json",
     },
+    next: { revalidate: 60 * 60 * 12 },
   });
 
   let data: ReviewParts = await response.json().catch((error) => {
@@ -28,7 +29,7 @@ export async function getResumeTLDRData(): Promise<
     };
   });
 
-  console.debug("resume data sent...");
+  console.debug("tldr resume data sent...");
   return { data, success: true };
 }
 
@@ -42,15 +43,18 @@ export async function getResumeSummaryData(): Promise<
     headers: {
       "Content-Type": "application/json",
     },
+    next: { revalidate: 60 * 60 * 12 },
   });
 
-  const data: string = await response.text().catch((error) => {
+  try {
+    // TS is not liking esponse.text().catch() :shrug:
+    const data: string = await response.text();
+    console.debug("summary resume data sent...");
+    return { data, success: true };
+  } catch (error) {
     let errorMsg = parseError(error);
     return { error: { message: errorMsg }, success: false };
-  });
-
-  console.debug("resume data sent...");
-  return { data, success: true };
+  }
 }
 
 // https://developer.mozilla.org/docs/Web/API/ReadableStream#convert_async_iterator_to_stream

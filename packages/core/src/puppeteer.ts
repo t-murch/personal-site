@@ -27,6 +27,7 @@ export async function requestUserAuth(): Promise<any> {
     ["state", state],
   ]);
 
+  console.debug(`** Params = ${searchParams.toString()}`);
   const browser = await puppeteer.launch({
     args: process.env.SST_DEV ? puppeteer.defaultArgs() : Chromium.args,
     devtools: isDev,

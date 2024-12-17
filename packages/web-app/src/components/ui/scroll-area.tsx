@@ -20,7 +20,7 @@ const ScrollArea = React.forwardRef<
       TL;DR, there's a child div with display:table set that 
       interferes with the layout. 
     */}
-    <ScrollAreaPrimitive.Viewport className="h-full w-full rounded-[inherit] [&>div]:!block">
+    <ScrollAreaPrimitive.Viewport className="absolute inset-0 h-full w-full rounded-[inherit] [&>div]:!block">
       {children}
     </ScrollAreaPrimitive.Viewport>
     <ScrollBar />

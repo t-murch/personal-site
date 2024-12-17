@@ -4,22 +4,30 @@ import {
   SPOTIFY_API_KEY,
   userBucket,
 } from "./Storage";
-
+// https://test-tm.toddmurch.dev/resume_summary
 const prodOrigin = [
   "https://www.toddmurch.dev",
   "https://accounts.spotify.com",
 ];
 export const allowedOrigins = $dev
-  ? ["http://localhost:3000", "https://accounts.spotify.com"]
+  ? [
+      `https://${$app.stage}.toddmurch.dev`,
+      "http://localhost:3000",
+      "https://accounts.spotify.com",
+    ]
   : prodOrigin;
+if ($dev) {
+  console.log(`allowedOrigins = ${JSON.stringify(allowedOrigins)}`);
+}
 
 export const musicApi = new sst.aws.ApiGatewayV2("MusicApi", {
   cors: { allowMethods: ["GET"], allowOrigins: allowedOrigins },
   domain: {
     name:
       $app.stage === "prod"
-        ? "toddmurch.dev"
+        ? "api.music.toddmurch.dev"
         : `${$app.stage}.api.music.toddmurch.dev`,
+    dns: sst.cloudflare.dns(),
   },
   transform: {
     route: {

@@ -2,9 +2,8 @@ import GeminiLogo from "@/../public/icons/gemini.svg";
 import { Separator } from "@radix-ui/react-separator";
 import CardHeaderContent from "./CardHeaderContent";
 import { ResumeReview } from "./ResumeReview";
-import { Card, CardContent, CardHeader } from "./ui/card";
-import Icon from "./Icon";
 import { TooltipxPopover } from "./TooltipxPopover";
+import { Card, CardContent, CardHeader } from "./ui/card";
 
 export function ResumeCard() {
   return (

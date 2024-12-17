@@ -34,7 +34,7 @@ export default async function Page() {
           <Separator className="@xl/card:my-2" />
         </CardHeader>
         <CardContent className="h-[90%] md:h-2/3 @xl/card:h-4/5 @xl/card:max-h-[4/5] p-2 pt-2">
-          <ScrollArea className="h-[98%]">
+          <ScrollArea className="h-full w-full">
             <AboutMe />
           </ScrollArea>
         </CardContent>

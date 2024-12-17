@@ -62,8 +62,8 @@ export async function analyze(): Promise<string> {
   console.log("Analyze invoked");
   let data: GeminiGenerateContentReturn | null = null;
   const s3 = new S3Client({});
-  // const s3 = new AWS.S3();
   const resumeText = await getResume(s3);
+  console.log(`resume acquired: ${resumeText.slice(0, 10)}`);
   const { urlPath, requestOptions } = getGeminiRequest(
     resumeText,
     STRONG_SUITS_PROMPT,
@@ -74,6 +74,7 @@ export async function analyze(): Promise<string> {
       requestOptions,
     );
     data = (await response.json()) as GeminiGenerateContentReturn;
+    console.debug(`data.text: ${data?.candidates[0].content.parts[0].text}`);
   } catch (error) {
     console.error(
       `Error at Gemini API. error = ${JSON.stringify(error ?? {})}`,
@@ -114,7 +115,6 @@ export async function getResume(s3: S3Client): Promise<string> {
     const resume = await s3.send(new GetObjectCommand(params));
     resumeText = (await resume.Body?.transformToString()) ?? "";
     // console.debug(`resume text from s3 = ${resumeText}`);
-    // resumeText = resume.Body?.toString("utf-8") ?? "";
   } catch (error) {
     console.error("Error getting the resume from s3: ", error);
   }
@@ -125,9 +125,7 @@ export async function getResume(s3: S3Client): Promise<string> {
 // Upload the resume to the s3 bucket
 export async function upload(fileContent: Buffer) {
   const parsedFile = await parsePdf(fileContent);
-  // console.debug("parsedFile: ", parsedFile + "\n\n");
   const s3 = new S3Client({});
-  // const s3 = new AWS.S3();
   const params = {
     Bucket: Resource.RobotsBucket.name,
     Key: "samples/tm-resume.txt",

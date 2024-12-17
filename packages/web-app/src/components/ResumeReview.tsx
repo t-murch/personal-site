@@ -3,10 +3,13 @@ import { TLDRContent } from "./ResumeTLDR";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { ResumeSummary } from "./ResumeSummary";
 
-export function ResumeReview() {
+export async function ResumeReview() {
   return (
     <>
-      <Tabs defaultValue="TLDR" className="w-full h-full overflow-hidden">
+      <Tabs
+        defaultValue="StrongSuits"
+        className="w-full h-full overflow-hidden"
+      >
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="StrongSuits">
             <h2 className="font-bold">Summary</h2>
@@ -15,12 +18,12 @@ export function ResumeReview() {
             <h2 className="font-bold">TL;DR</h2>
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="StrongSuits" className="h-full">
+        <TabsContent value="StrongSuits" className="max-h-[98%]">
           <Suspense fallback={<ResumeReviewSkeleton />}>
             <ResumeSummary />
           </Suspense>
         </TabsContent>
-        <TabsContent value="TLDR" className="h-full">
+        <TabsContent value="TLDR" className="max-h-[98%]">
           <Suspense fallback={<ResumeReviewSkeleton />}>
             <TLDRContent />
           </Suspense>

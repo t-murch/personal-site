@@ -52,7 +52,7 @@ export function ListCard({
         <Separator className="@xl/card:my-2" />
       </CardHeader>
       <CardContent className="h-[90%] md:h-2/3 @xl/card:h-4/5 @xl/card:max-h-[4/5] p-2 pt-2">
-        <ScrollArea className="h-[98%] w-full">
+        <ScrollArea className="h-full w-full">
           {items.map((listItem, index) => {
             // Will need to refactor this once I have the third type
             const itemType: "jam" | "activity" = (listItem as Jam)?.album
@@ -73,6 +73,7 @@ export function ListCard({
                   secondaryInfo={item.secondaryInfo}
                   imageLink={item.imageLink ?? NextLogo}
                   additional={item.additional}
+                  priorityLoad={index < 8}
                   url={item.url}
                   data={item?.data ?? {}}
                 />

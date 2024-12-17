@@ -9,6 +9,7 @@ import LiveWrapper from "./LiveWrapper";
 export default function MusicRow({
   additional,
   imageLink,
+  priorityLoad = false,
   secondaryInfo,
   title,
   url,
@@ -22,8 +23,7 @@ export default function MusicRow({
           width={25}
           height={25}
           className="rounded-md w-[25px] h-[25px]"
-          // These rows are all within a list of 50+, so no.
-          // priority
+          priority={priorityLoad}
         />
         <div className="h-full overflow-hidden overflow-ellipsis">
           <p>

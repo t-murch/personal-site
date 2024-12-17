@@ -1,0 +1,11 @@
+{
+  "name": "@portfolio-tm/scripts",
+  "version": "0.0.0",
+  "dependencies": {
+    "sst": "*"
+  },
+  "scripts": {
+    "shell": "sst shell tsx"
+  },
+  "devDependencies": {}
+}

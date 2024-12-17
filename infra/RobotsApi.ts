@@ -6,8 +6,9 @@ export const robotsApi = new sst.aws.ApiGatewayV2("RobotsAPI", {
   domain: {
     name:
       $app.stage === "prod"
-        ? "toddmurch.dev"
+        ? "api.robots.toddmurch.dev"
         : `${$app.stage}.api.robots.toddmurch.dev`,
+    dns: sst.cloudflare.dns(),
   },
   transform: {
     route: {

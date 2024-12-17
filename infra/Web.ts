@@ -9,6 +9,7 @@ export const WebApp = new sst.aws.Nextjs("Site", {
     name:
       $app.stage === "prod" ? "toddmurch.dev" : `${$app.stage}.toddmurch.dev`,
     aliases: $app.stage === "prod" ? ["www.toddmurch.dev"] : undefined,
+    dns: sst.cloudflare.dns(),
   },
   link: [musicApi, robotsApi],
 });

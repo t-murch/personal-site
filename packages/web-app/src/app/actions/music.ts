@@ -17,6 +17,7 @@ export async function getMusicData(): Promise<
     headers: {
       "Content-Type": "application/json",
     },
+    next: { revalidate: 60 * 60 * 24 },
   });
 
   const data: GeneralResponse<ClientPlaylist, { message: string }> =
