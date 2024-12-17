@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import ThemeChanger from "@/components/ThemeChanger";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,13 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head />
       <body className={`${inter.className} bg-background`}>
-        <ThemeProvider
-          attribute="class"
-          enableSystem
-          defaultTheme="system"
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableColorScheme>
           <div className={`relative flex min-h-svh flex-col p-8`}>
             {/* BEGINNING OF LAYOUT */}
 
@@ -34,10 +31,11 @@ export default function RootLayout({
               {/* <div className="flex w-full flex-row md:gap-2"> */}
               <div className="flex-1 grid grid-rows-10 grid-cols-1 gap-2">
                 <header className="row-span-1 md:row-span-2">
-                  <Card className="flex h-full py-1 px-2 items-end">
+                  <Card className="flex h-full py-1 px-2 items-end justify-between">
                     <h1 className="text-xl md:text-3xl lg:text-6xl inline font-bold">
                       A dev building and learning.
                     </h1>
+                    <ThemeChanger />
                   </Card>
                 </header>
                 <section className="hidden md:block row-span-1 md:w-full">
