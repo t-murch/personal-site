@@ -18,12 +18,12 @@ export async function ResumeReview() {
             <h2 className="font-bold">TL;DR</h2>
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="StrongSuits" className="max-h-[98%]">
+        <TabsContent value="StrongSuits" className="h-full">
           <Suspense fallback={<ResumeReviewSkeleton />}>
             <ResumeSummary />
           </Suspense>
         </TabsContent>
-        <TabsContent value="TLDR" className="max-h-[98%]">
+        <TabsContent value="TLDR" className="h-full">
           <Suspense fallback={<ResumeReviewSkeleton />}>
             <TLDRContent />
           </Suspense>

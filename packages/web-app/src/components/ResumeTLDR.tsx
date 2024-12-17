@@ -1,5 +1,6 @@
 import { getResumeTLDRData } from "@/app/actions/robots";
 import { delayFetch } from "@/lib/utils";
+import { ScrollArea } from "./ui/scroll-area";
 
 export async function TLDRContent() {
   const data = await delayFetch(getResumeTLDRData);
@@ -8,6 +9,6 @@ export async function TLDRContent() {
     : "Error fetching resume summary.";
 
   return (
-    <p className="font-normal text-base h-full overflow-y-scroll">{content}</p>
+    <ScrollArea className="h-full w-full text-black">{content}</ScrollArea>
   );
 }
