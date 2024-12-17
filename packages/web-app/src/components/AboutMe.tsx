@@ -8,11 +8,11 @@ export function AboutMe() {
         high standards, open communication, and an us mindset in accomplishing
         goals. I started at IBM in 2019 where I worked with Solution Architects
         to move Client workloads to IBM & Redhat Cloud services. I then
-        transitioned into a &apos;traditional&apos; developer role with Khoros
-        in April 2021 where I maintained and built upon the Care product on the
-        Response Team. Responsibilities ranged from building new features in
-        React and/or Java, resolving bugs reported by clients, QEs, or support
-        staff. Navigate to the Resume Summary page, or check out my LinkedIn for
+        transitioned into a web-application development with Khoros in April
+        2021 where I maintained and built upon the Care product on the Response
+        Team. Responsibilities ranged from building new features in React and/or
+        Java, resolving bugs reported by clients, QEs, or support staff.
+        Navigate to the Resume Summary page, or check out my LinkedIn for
         details there.
       </p>{" "}
       <span>Code for the site can be found on my Github.</span>

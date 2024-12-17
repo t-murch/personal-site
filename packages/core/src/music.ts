@@ -138,7 +138,6 @@ export async function getUserAccessToken(code: string): Promise<any> {
     }
 
     const data = (await response.json()) as any;
-    console.debug(`our data isssss = ${JSON.stringify(data, null, 2)}`);
     if (
       data?.access_token &&
       data.token_type &&
