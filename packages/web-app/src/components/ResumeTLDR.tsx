@@ -8,7 +8,5 @@ export async function TLDRContent() {
     ? data.data.TLDR.join(" ")
     : "Error fetching resume summary.";
 
-  return (
-    <ScrollArea className="h-full w-full text-black">{content}</ScrollArea>
-  );
+  return <ScrollArea className="h-full w-full">{content}</ScrollArea>;
 }

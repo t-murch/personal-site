@@ -3,13 +3,14 @@
 import { JSX } from "react";
 import Icon from "./Icon";
 import { useMediaQuery } from "./hooks/use-media-query";
+import { Button } from "./ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 const MESSAGE =
   "Created using the Google Gemini API, so responses may vary and sometimes untrue. ";
@@ -28,10 +29,12 @@ function GeminiToolTip() {
     <>
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger className="self-baseline cursor-default">
-            <Icon name="info" size={25} />
+          <TooltipTrigger asChild className="cursor-default">
+            <Button variant="ghost" className="h-8 w-8 px-0">
+              <Icon name="info" size={25} />
+            </Button>
           </TooltipTrigger>
-          <TooltipContent className="border bg-[rgb(12, 10, 9)] text-white max-h-20">
+          <TooltipContent>
             <p>{MESSAGE}</p>
           </TooltipContent>
         </Tooltip>

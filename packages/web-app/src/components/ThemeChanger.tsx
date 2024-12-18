@@ -7,7 +7,6 @@ import { MoonIcon, SunIcon } from "lucide-react";
 const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();
   const nextTheme = theme === "dark" ? "light" : "dark";
-  console.log(`The current theme is: ${theme}`);
 
   return (
     <Button

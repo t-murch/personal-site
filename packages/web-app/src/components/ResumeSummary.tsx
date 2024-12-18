@@ -7,10 +7,5 @@ export async function ResumeSummary() {
   const data: GeneralResponse<string, { message: string }> =
     await delayFetch(getResumeSummaryData);
   const content = data.success ? data.data : "Error fetching resume summary.";
-  return (
-    <ScrollArea className="h-full w-full text-black">{content}</ScrollArea>
-  );
-  {
-    /* <p className="font-normal text-base h-full overflow-y-scroll">{content}</p> */
-  }
+  return <ScrollArea className="h-full w-full">{content}</ScrollArea>;
 }
