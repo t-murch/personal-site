@@ -3,6 +3,8 @@ import Link from "next/link";
 import { CardPlacementOptions, IconxRoutes } from "./ListCard";
 import { TooltipxPopover } from "./TooltipxPopover";
 
+import type { JSX } from "react";
+
 type CardHeaderContentProps = {
   iconPath: string;
   link: keyof typeof IconxRoutes;

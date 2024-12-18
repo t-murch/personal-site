@@ -6,6 +6,8 @@ import { Activity, Jam, activityToContentRow, jamToContentRow } from "@/types";
 import CardHeaderContent from "./CardHeaderContent";
 import { ContentRowProps } from "./content-row/contentRow";
 
+import type { JSX } from "react";
+
 export const IconxRoutes = {
   gemini: "/resume_summary",
   home: "/",
