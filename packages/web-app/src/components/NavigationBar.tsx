@@ -4,8 +4,7 @@ import { Card } from "./ui/card";
 
 export async function NavigationBar() {
   return (
-    // <Card className="flex flex-row h-full py-1 px-3 justify-between">
-    <Card className="flex flex-row h-full w-full gap-2 py-1 px-3 justify-between">
+    <Card className="flex flex-row h-full w-full gap-2 py-1 px-3 justify-between items-center">
       <div className="flex flex-row gap-2">
         <a
           href="https://www.linkedin.com/in/toddmurch/"
